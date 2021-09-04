@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
+
+@font-face {
+  font-family: "Netflix";
+  src: local("Netflix"), url(./fonts/Netflix_Regular.woff2) format("woff2");
+}
+
+@font-face {
+  font-family: "Netflix_Medium";
+  src: local("Netflix_Medium"),
+    url(./fonts/Netflix_Medium.woff2) format("woff2");
+}
+
+body {
+  @apply text-typography font-netflix bg-background;
+  max-width: 100vw;
+  min-height: 100vh;
+}
+
 @tailwind utilities;
