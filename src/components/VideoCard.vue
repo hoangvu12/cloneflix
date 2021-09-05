@@ -2,7 +2,7 @@
   <div
     ref="container"
     class="relative w-60 transition duration-300"
-    :class="[isScaled && 'z-10 scale-150']"
+    :class="[isScaled ? 'animate-card-hover' : 'animate-card-unhover']"
     :style="`transform-origin: ${transformOrigin}`"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
@@ -23,13 +23,13 @@
         h-28
         bg-background
         rounded-b-md
-        transition
+        transition-all
         duration-300
         shadow
         p-3
         space-y-2
       "
-      :class="[!isScaled ? 'invisible opacity-0 ' : 'visible opacity-100']"
+      :class="[!isScaled ? 'invisible opacity-0' : 'visible opacity-100']"
     >
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-2">
@@ -147,5 +147,9 @@ export default {
 .shadow {
   -webkit-box-shadow: 0px 0px 12px 0px #000000;
   box-shadow: 0px 0px 12px 0px #000000;
+}
+
+.card {
+  animation: leaves 300ms ease infinite;
 }
 </style>

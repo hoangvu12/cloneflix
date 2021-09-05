@@ -104,8 +104,6 @@ export default {
     rgba(0, 0, 0, 0.7) 10%,
     rgba(0, 0, 0, 0)
   );
-  background-image: -moz-
-    oldlinear-gradient(top, rgba(0, 0, 0, 0.7) 10%, rgba(0, 0, 0, 0));
   background-image: -o-linear-gradient(
     top,
     rgba(0, 0, 0, 0.7) 10%,
