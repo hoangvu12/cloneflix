@@ -1,6 +1,17 @@
 @tailwind base;
 @tailwind components;
 
+:root {
+  --primary-color: #e50914;
+  --primary-color-rgb: 229, 9, 20;
+  --secondary-color: #525759;
+  --secondary-color-rgb: 82, 87, 89;
+  --background-color: #141414;
+  --background-color-rgb: 20, 20, 20;
+  --typography-color: #e5e5d8;
+  --typography-color-rgb: 229, 229, 216;
+}
+
 @font-face {
   font-family: "Netflix";
   src: local("Netflix"), url(./fonts/Netflix_Regular.woff2) format("woff2");
@@ -13,9 +24,10 @@
 }
 
 body {
-  @apply text-typography font-netflix bg-background;
+  @apply text-typography font-netflix;
   max-width: 100vw;
   min-height: 100vh;
+  background-color: var(--background-color);
 }
 
 @tailwind utilities;

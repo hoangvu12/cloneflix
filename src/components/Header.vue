@@ -1,5 +1,8 @@
 <template>
-  <div class="fixed z-10 w-screen h-16" :class="[!isTop && 'bg-background']">
+  <div
+    class="fixed z-10 w-screen h-16 transition duration-700"
+    :class="[!isTop && 'bg-background']"
+  >
     <div class="header__overlay absolute inset-0 w-full h-full"></div>
     <div
       class="
@@ -39,13 +42,15 @@
           </router-link>
         </div>
       </div>
-      <ic-round-search class="w-6 h-6" />
+      <icon-round-search class="w-6 h-6" />
     </div>
   </div>
 </template>
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import IconRoundSearch from "~icons/ic/round-search";
+
 import logo from "../assets/logo.png";
 
 export default {
@@ -61,6 +66,10 @@ export default {
       routes: headerRoutes,
       isTop,
     };
+  },
+
+  components: {
+    IconRoundSearch,
   },
 
   data() {

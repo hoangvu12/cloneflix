@@ -1,16 +1,17 @@
 module.exports = {
+  mode: "jit",
   purge: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
       colors: {
-        primary: "#E50914",
-        secondary: "#525759",
+        primary: "var(--primary-color)",
+        secondary: "var(--secondary-color)",
         background: {
-          DEFAULT: "#141414",
+          DEFAULT: "var(--background-color)",
         },
         typography: {
-          DEFAULT: "#E5E5D8",
+          DEFAULT: "var(--typography-color)",
         },
       },
       fontFamily: {
