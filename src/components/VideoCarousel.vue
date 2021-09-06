@@ -1,5 +1,9 @@
 <template>
-  <div ref="container" class="carousel-container">
+  <div
+    ref="container"
+    class="carousel-container relative"
+    :class="[childHovering ? 'animate-z-hover' : 'animate-z-unhover']"
+  >
     <Swiper
       :slides-per-view="5"
       :space-between="5"
@@ -71,6 +75,7 @@ export default {
   setup(props) {
     const { slidesPerView } = props;
     const container = ref(null);
+    const childHovering = ref(false);
 
     const handleToggleButton = (swiper) => {
       const prevButton = container.value.querySelector(".swiper-button-prev");
@@ -87,6 +92,29 @@ export default {
       } else {
         nextButton.classList.remove("swiper-button-disabled");
       }
+    };
+
+    const listenCardHovering = () => {
+      const config = {
+        attributes: true,
+        subtree: true,
+      };
+
+      const callback = function (mutations) {
+        for (let mutation of mutations) {
+          const { target } = mutation;
+
+          if (target.classList.contains("animate-card-hover")) {
+            childHovering.value = true;
+          } else if (target.classList.contains("animate-card-unhover")) {
+            childHovering.value = false;
+          }
+        }
+      };
+
+      const observer = new MutationObserver(callback);
+
+      observer.observe(container.value, config);
     };
 
     const onReady = (swiper) => {
@@ -106,6 +134,7 @@ export default {
       });
 
       handleToggleButton(swiper);
+      listenCardHovering();
     };
 
     onMounted(() => {
@@ -129,6 +158,7 @@ export default {
       container,
       onReady,
       handleToggleButton,
+      childHovering,
     };
   },
   components: {
