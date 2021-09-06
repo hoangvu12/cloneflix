@@ -8,6 +8,7 @@
       :slides-per-group="5"
       :speed="800"
       @swiper="onReady"
+      @slideChange="handleToggleButton"
     >
       <SwiperSlide v-for="item in items" :key="item.id">
         <video-card :data="item" />
@@ -71,20 +72,21 @@ export default {
     const { slidesPerView } = props;
     const container = ref(null);
 
-    const handleSlideTransform = () => {
-      const slides = [
-        ...container.value.querySelectorAll(".swiper-slide .video-card"),
-      ];
+    const handleToggleButton = (swiper) => {
+      const prevButton = container.value.querySelector(".swiper-button-prev");
+      const nextButton = container.value.querySelector(".swiper-button-next");
 
-      const chunkedSlides = chunk(slides, slidesPerView);
+      if (swiper.isBeginning && !swiper.params.loop) {
+        prevButton.classList.add("swiper-button-disabled");
+      } else {
+        prevButton.classList.remove("swiper-button-disabled");
+      }
 
-      chunkedSlides.forEach((chunk) => {
-        const firstElement = chunk[0];
-        const lastElement = chunk[chunk.length - 1];
-
-        firstElement.style.transformOrigin = "left center";
-        lastElement.style.transformOrigin = "right center";
-      });
+      if (swiper.isEnd && !swiper.params.loop) {
+        nextButton.classList.add("swiper-button-disabled");
+      } else {
+        nextButton.classList.remove("swiper-button-disabled");
+      }
     };
 
     const onReady = (swiper) => {
@@ -103,17 +105,30 @@ export default {
         swiper.slideNext();
       });
 
-      console.log("onready", swiper);
+      handleToggleButton(swiper);
     };
 
     onMounted(() => {
-      handleSlideTransform();
+      const slides = [
+        ...container.value.querySelectorAll(".swiper-slide .video-card"),
+      ];
+
+      const chunkedSlides = chunk(slides, slidesPerView);
+
+      chunkedSlides.forEach((chunk) => {
+        const firstElement = chunk[0];
+        const lastElement = chunk[chunk.length - 1];
+
+        firstElement.style.transformOrigin = "left center";
+        lastElement.style.transformOrigin = "right center";
+      });
     });
 
     return {
       modules: [Pagination],
       container,
       onReady,
+      handleToggleButton,
     };
   },
   components: {
