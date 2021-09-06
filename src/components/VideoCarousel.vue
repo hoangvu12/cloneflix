@@ -1,0 +1,149 @@
+<template>
+  <Swiper
+    :slides-per-view="5"
+    :space-between="5"
+    :modules="modules"
+    :navigation="{
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    }"
+    :pagination="{ type: 'bullets' }"
+    :slides-per-group="5"
+    :speed="800"
+  >
+    <SwiperSlide v-for="item in items" :key="item.id">
+      <video-card :data="item" />
+    </SwiperSlide>
+
+    <template #container-end>
+      <div
+        class="
+          swiper-button swiper-button-prev
+          group
+          cursor-pointer
+          flex
+          items-center
+          justify-center
+        "
+      >
+        <IconArrowLeft class="w-10 h-10 group-hover:w-12 group-hover:h-12" />
+      </div>
+
+      <div
+        class="
+          swiper-button
+          group
+          cursor-pointer
+          swiper-button-next
+          flex
+          items-center
+          justify-center
+        "
+      >
+        <IconArrowRight class="w-10 h-10 group-hover:w-12 group-hover:h-12" />
+      </div>
+    </template>
+  </Swiper>
+</template>
+
+<script>
+import IconArrowRight from "~icons/ic/outline-arrow-forward-ios";
+import IconArrowLeft from "~icons/ic/outline-arrow-back-ios";
+
+import { onMounted } from "vue";
+import { Navigation, Pagination } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+
+import { chunk } from "../utils";
+import VideoCard from "./VideoCard.vue";
+
+export default {
+  props: {
+    slidesPerView: {
+      default: 5,
+      type: Number,
+    },
+    items: {
+      type: Array,
+    },
+  },
+  setup(props) {
+    const { slidesPerView } = props;
+
+    onMounted(() => {
+      const slides = [
+        ...document.querySelectorAll(".swiper-slide .video-card"),
+      ];
+
+      const chunkedSlides = chunk(slides, slidesPerView);
+
+      chunkedSlides.forEach((chunk) => {
+        const firstElement = chunk[0];
+        const lastElement = chunk[chunk.length - 1];
+
+        firstElement.style.transformOrigin = "left center";
+        lastElement.style.transformOrigin = "right center";
+      });
+    });
+
+    return {
+      modules: [Navigation, Pagination],
+    };
+  },
+  components: {
+    VideoCard,
+    Swiper,
+    SwiperSlide,
+    IconArrowRight,
+    IconArrowLeft,
+  },
+};
+</script>
+
+<style>
+.swiper {
+  overflow: visible;
+}
+
+.swiper-button-disabled {
+  display: none;
+}
+
+.swiper:hover .swiper-button svg,
+.swiper:hover .swiper-pagination {
+  visibility: visible;
+}
+
+.swiper-button svg {
+  visibility: hidden;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  @apply absolute h-full w-12 mt-0 top-0 bg-black bg-opacity-50;
+  z-index: 2;
+}
+
+.swiper-button-prev {
+  @apply -left-12;
+}
+
+.swiper-button-next {
+  @apply -right-12;
+}
+
+.swiper-pagination {
+  @apply space-x-1 w-24 h-0.5 absolute right-0 -top-4 flex invisible;
+}
+
+.swiper-pagination-bullet {
+  @apply h-full bg-secondary;
+  flex: 1 1 0%;
+}
+
+.swiper-pagination-bullet-active {
+  @apply bg-white;
+}
+</style>
+

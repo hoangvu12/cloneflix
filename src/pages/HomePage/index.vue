@@ -73,13 +73,8 @@
         <h1 class="text-xl font-medium font-netflix_medium">
           Popular on Netflix
         </h1>
-        <div class="flex items-center space-x-2">
-          <video-card
-            v-for="item in popularList.slice(0, 5)"
-            :key="item.id"
-            :data="item"
-          />
-        </div>
+
+        <video-carousel :items="popularList" />
       </div>
     </div>
   </div>
@@ -92,9 +87,10 @@ import popular from "../../data/popular.json";
 import banner from "../../data/banner.json";
 import VideoCard from "../../components/VideoCard.vue";
 import Image from "../../components/Image.vue";
+import VideoCarousel from "../../components/VideoCarousel.vue";
 
 export default {
-  components: { VideoCard, Image, IconPlayFill, IconInfoCircle },
+  components: { VideoCard, Image, IconPlayFill, IconInfoCircle, VideoCarousel },
   setup() {
     const randomIndex = Math.floor(Math.random() * 5);
 
