@@ -1,57 +1,56 @@
 <template>
-  <Swiper
-    :slides-per-view="5"
-    :space-between="5"
-    :modules="modules"
-    :navigation="{
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    }"
-    :pagination="{ type: 'bullets' }"
-    :slides-per-group="5"
-    :speed="800"
-  >
-    <SwiperSlide v-for="item in items" :key="item.id">
-      <video-card :data="item" />
-    </SwiperSlide>
+  <div ref="container" class="carousel-container">
+    <Swiper
+      :slides-per-view="5"
+      :space-between="5"
+      :modules="modules"
+      :pagination="{ type: 'bullets' }"
+      :slides-per-group="5"
+      :speed="800"
+      @swiper="onReady"
+    >
+      <SwiperSlide v-for="item in items" :key="item.id">
+        <video-card :data="item" />
+      </SwiperSlide>
 
-    <template #container-end>
-      <div
-        class="
-          swiper-button swiper-button-prev
-          group
-          cursor-pointer
-          flex
-          items-center
-          justify-center
-        "
-      >
-        <IconArrowLeft class="w-10 h-10 group-hover:w-12 group-hover:h-12" />
-      </div>
+      <template #container-end>
+        <div
+          class="
+            swiper-button swiper-button-prev
+            group
+            cursor-pointer
+            flex
+            items-center
+            justify-center
+          "
+        >
+          <IconArrowLeft class="w-10 h-10 group-hover:w-12 group-hover:h-12" />
+        </div>
 
-      <div
-        class="
-          swiper-button
-          group
-          cursor-pointer
-          swiper-button-next
-          flex
-          items-center
-          justify-center
-        "
-      >
-        <IconArrowRight class="w-10 h-10 group-hover:w-12 group-hover:h-12" />
-      </div>
-    </template>
-  </Swiper>
+        <div
+          class="
+            swiper-button
+            group
+            cursor-pointer
+            swiper-button-next
+            flex
+            items-center
+            justify-center
+          "
+        >
+          <IconArrowRight class="w-10 h-10 group-hover:w-12 group-hover:h-12" />
+        </div>
+      </template>
+    </Swiper>
+  </div>
 </template>
 
 <script>
 import IconArrowRight from "~icons/ic/outline-arrow-forward-ios";
 import IconArrowLeft from "~icons/ic/outline-arrow-back-ios";
 
-import { onMounted } from "vue";
-import { Navigation, Pagination } from "swiper";
+import { onMounted, ref } from "vue";
+import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 
@@ -70,10 +69,11 @@ export default {
   },
   setup(props) {
     const { slidesPerView } = props;
+    const container = ref(null);
 
-    onMounted(() => {
+    const handleSlideTransform = () => {
       const slides = [
-        ...document.querySelectorAll(".swiper-slide .video-card"),
+        ...container.value.querySelectorAll(".swiper-slide .video-card"),
       ];
 
       const chunkedSlides = chunk(slides, slidesPerView);
@@ -85,10 +85,35 @@ export default {
         firstElement.style.transformOrigin = "left center";
         lastElement.style.transformOrigin = "right center";
       });
+    };
+
+    const onReady = (swiper) => {
+      const prevButton = container.value.querySelector(".swiper-button-prev");
+      const nextButton = container.value.querySelector(".swiper-button-next");
+
+      prevButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (swiper.isBeginning && !swiper.params.loop) return;
+        swiper.slidePrev();
+      });
+
+      nextButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (swiper.isEnd && !swiper.params.loop) return;
+        swiper.slideNext();
+      });
+
+      console.log("onready", swiper);
+    };
+
+    onMounted(() => {
+      handleSlideTransform();
     });
 
     return {
-      modules: [Navigation, Pagination],
+      modules: [Pagination],
+      container,
+      onReady,
     };
   },
   components: {

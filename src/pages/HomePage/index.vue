@@ -68,7 +68,7 @@
     </div>
 
     <!-- Lists -->
-    <div class="-mt-28 px-12 relative z-10">
+    <div class="-mt-28 px-12 relative z-10 space-y-12">
       <div class="space-y-2">
         <h1 class="text-xl font-medium font-netflix_medium">
           Popular on Netflix
@@ -76,6 +76,18 @@
 
         <video-carousel :items="popularList" />
       </div>
+
+      <div class="space-y-2">
+        <h1 class="text-xl font-medium font-netflix_medium">Top rated</h1>
+
+        <video-carousel :items="topRatedList" />
+      </div>
+
+      <!-- <div class="space-y-2">
+        <h1 class="text-xl font-medium font-netflix_medium">Latest for you</h1>
+
+        <video-carousel :items="latestList" />
+      </div> -->
     </div>
   </div>
 </template>
@@ -84,6 +96,8 @@ import IconPlayFill from "~icons/ph/play-fill";
 import IconInfoCircle from "~icons/bx/bx-info-circle";
 
 import popular from "../../data/popular.json";
+import topRated from "../../data/top-rated.json";
+import latest from "../../data/latest.json";
 import banner from "../../data/banner.json";
 import VideoCard from "../../components/VideoCard.vue";
 import Image from "../../components/Image.vue";
@@ -98,6 +112,8 @@ export default {
       info: popular[randomIndex],
       banner,
       popularList: popular,
+      topRatedList: topRated,
+      latestList: latest,
     };
   },
 
