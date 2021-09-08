@@ -25,6 +25,7 @@
         size="w300"
         class="w-full h-full object-cover rounded-md"
         :class="{ 'rounded-b-none shadow': isScaled }"
+        :alt="data.title"
       />
     </div>
 
