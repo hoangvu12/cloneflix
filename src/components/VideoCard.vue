@@ -67,7 +67,7 @@
         </circle-button>
       </div>
 
-      <p>{{ data.title }}</p>
+      <p class="line-clamp-1">{{ data.title }}</p>
 
       <div class="flex items-center space-x-2 text-xs">
         <div class="flex items-center text-yellow-500">
