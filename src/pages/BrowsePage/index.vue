@@ -1,64 +1,66 @@
 <template>
   <div
-    class="home-container w-full h-full pb-60"
+    class="w-full h-full pb-60"
     v-bind="$attrs"
     :class="[currentRoute.name === 'Info' && 'fixed']"
   >
-    <!-- Banner -->
-    <div class="relative w-full h-full">
-      <Image
-        :src="mostQuality(banner.backdrops).file_path"
-        alt="banner"
-        class="object-cover w-full h-full"
-        loadingClass="w-screen h-[120vh]"
-      />
+    <div>
+      <!-- Banner -->
+      <div class="banner-container relative w-full h-full">
+        <Image
+          :src="mostQuality(banner.backdrops).file_path"
+          alt="banner"
+          class="object-cover w-full h-full"
+          loadingClass="w-screen h-[120vh]"
+        />
 
-      <div class="banner__overlay absolute inset-0 flex items-center px-12">
-        <div class="w-[40%] space-y-6">
-          <Image
-            :src="mostQuality(banner.logos).file_path"
-            alt="movie_logo"
-            class="w-full object-contain max-w-[25vw] mb-4"
-          />
+        <div class="banner__overlay absolute inset-0 flex items-center px-12">
+          <div class="w-[40%] space-y-6">
+            <Image
+              :src="mostQuality(banner.logos).file_path"
+              alt="movie_logo"
+              class="w-full object-contain max-w-[25vw] mb-4"
+            />
 
-          <div class="space-y-2">
-            <h1 class="text-xl font-bold line-clamp-2">
-              {{ info.title }}
-            </h1>
+            <div class="space-y-2">
+              <h1 class="text-xl font-bold line-clamp-2">
+                {{ info.title }}
+              </h1>
 
-            <p class="text-lg line-clamp-4 font-medium">
-              {{ info.overview }}
-            </p>
-          </div>
+              <p class="text-lg line-clamp-4 font-medium">
+                {{ info.overview }}
+              </p>
+            </div>
 
-          <div class="flex items-center space-x-2">
-            <Button class="text-black bg-white">
-              <IconPlayFill />
-              <p class="text-bold">Play</p>
-            </Button>
-            <Button
-              class="
-                text-white
-                bg-secondary bg-opacity-60
-                hover:bg-opacity-40
-                shadow-lg
-              "
-            >
-              <IconInfoCircle />
-              <p class="text-bold">More info</p>
-            </Button>
+            <div class="flex items-center space-x-2">
+              <Button class="text-black bg-white">
+                <IconPlayFill />
+                <p class="text-bold">Play</p>
+              </Button>
+              <Button
+                class="
+                  text-white
+                  bg-secondary bg-opacity-60
+                  hover:bg-opacity-40
+                  shadow-lg
+                "
+              >
+                <IconInfoCircle />
+                <p class="text-bold">More info</p>
+              </Button>
+            </div>
           </div>
         </div>
+
+        <div class="banner__overlay--down absolute bottom-0 h-32 w-full"></div>
       </div>
 
-      <div class="banner__overlay--down absolute bottom-0 h-32 w-full"></div>
-    </div>
-
-    <!-- Lists -->
-    <div class="-mt-28 px-12 relative z-10 space-y-12">
-      <Section title="Popular on Netflix" :items="popularList" />
-      <Section title="Top rated" :items="topRatedList" />
-      <Section title="Latest films" :items="latestList" />
+      <!-- Lists -->
+      <div class="-mt-28 px-12 relative z-10 space-y-12">
+        <Section title="Popular on Netflix" :items="popularList" />
+        <Section title="Top rated" :items="topRatedList" />
+        <Section title="Latest films" :items="latestList" />
+      </div>
     </div>
   </div>
 
@@ -102,7 +104,7 @@ export default {
     const currentRoute = router.currentRoute;
 
     const handleScrollPosition = (currentRoute) => {
-      const container = document.querySelector(".home-container");
+      const container = document.querySelector(".banner-container");
       const scrollTop = currentRoute.query.scrollTop || 0;
 
       if (currentRoute.name === "Info") {

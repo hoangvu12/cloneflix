@@ -3,7 +3,7 @@
     <div class="relative">
       <Image
         :src="data.backdrop_path"
-        :alt="movie"
+        :alt="data.title"
         :size="300"
         class="w-full h-32 object-cover rounded-t-md"
       />
