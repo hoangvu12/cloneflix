@@ -1,97 +1,94 @@
-<template >
-  <div class="relative w-full h-full pb-60">
-    <!-- Banner -->
-    <div class="relative w-full h-full banner__container">
-      <Image
-        :src="mostQuality(banner.backdrops).file_path"
-        alt="banner"
-        class="object-cover w-full h-full"
-      />
+<template>
+  <div
+    class="home-container w-full h-full pb-60"
+    v-bind="$attrs"
+    :class="[currentRoute.name === 'Info' && 'fixed']"
+  >
+    <div>
+      <!-- Banner -->
+      <div class="relative w-full h-full banner__container">
+        <Image
+          :src="mostQuality(banner.backdrops).file_path"
+          alt="banner"
+          class="object-cover w-full h-full"
+        />
 
-      <div class="banner__overlay absolute inset-0 flex items-center px-12">
-        <div class="banner__info space-y-6">
-          <Image
-            :src="mostQuality(banner.logos).file_path"
-            alt="movie_logo"
-            class="w-full object-contain movie__image mb-4"
-          />
+        <div class="banner__overlay absolute inset-0 flex items-center px-12">
+          <div class="w-[40%] space-y-6">
+            <Image
+              :src="mostQuality(banner.logos).file_path"
+              alt="movie_logo"
+              class="w-full object-contain max-w-[25vw] mb-4"
+            />
 
-          <div class="space-y-2">
-            <h1 class="text-xl font-bold line-clamp-2">
-              {{ info.title }}
-            </h1>
+            <div class="space-y-2">
+              <h1 class="text-xl font-bold line-clamp-2">
+                {{ info.title }}
+              </h1>
 
-            <p class="text-lg line-clamp-4 font-medium">
-              {{ info.overview }}
-            </p>
-          </div>
+              <p class="text-lg line-clamp-4 font-medium">
+                {{ info.overview }}
+              </p>
+            </div>
 
-          <div class="flex items-center space-x-2">
-            <button
-              class="
-                flex
-                items-center
-                space-x-3
-                px-6
-                py-2
-                rounded-md
-                text-black
-                bg-white
-                hover:bg-opacity-80
-              "
-            >
-              <IconPlayFill />
-              <p class="text-bold">Play</p>
-            </button>
-            <button
-              class="
-                flex
-                items-center
-                space-x-2
-                px-6
-                py-2
-                rounded-md
-                text-white
-                bg-secondary bg-opacity-60
-                hover:bg-opacity-40
-                shadow-lg
-              "
-            >
-              <IconInfoCircle />
-              <p class="text-bold">More info</p>
-            </button>
+            <div class="flex items-center space-x-2">
+              <Button class="text-black bg-white">
+                <IconPlayFill />
+                <p class="text-bold">Play</p>
+              </Button>
+              <Button
+                class="
+                  text-white
+                  bg-secondary bg-opacity-60
+                  hover:bg-opacity-40
+                  shadow-lg
+                "
+              >
+                <IconInfoCircle />
+                <p class="text-bold">More info</p>
+              </Button>
+            </div>
           </div>
         </div>
+
+        <div class="banner__overlay--down absolute bottom-0 h-32 w-full"></div>
       </div>
 
-      <div class="banner__overlay--down absolute bottom-0 h-32 w-full"></div>
-    </div>
+      <!-- Lists -->
+      <div class="-mt-28 px-12 relative z-10 space-y-12">
+        <div class="space-y-2">
+          <h1 class="text-xl font-medium font-netflix_medium">
+            Popular on Netflix
+          </h1>
 
-    <!-- Lists -->
-    <div class="-mt-28 px-12 relative z-10 space-y-12">
-      <div class="space-y-2">
-        <h1 class="text-xl font-medium font-netflix_medium">
-          Popular on Netflix
-        </h1>
+          <video-carousel :items="popularList" />
+        </div>
 
-        <video-carousel :items="popularList" />
+        <div class="space-y-2">
+          <h1 class="text-xl font-medium font-netflix_medium">Top rated</h1>
+
+          <video-carousel :items="topRatedList" />
+        </div>
+
+        <div class="space-y-2">
+          <h1 class="text-xl font-medium font-netflix_medium">Latest films</h1>
+
+          <video-carousel :items="latestList" />
+        </div>
       </div>
-
-      <div class="space-y-2">
-        <h1 class="text-xl font-medium font-netflix_medium">Top rated</h1>
-
-        <video-carousel :items="topRatedList" />
-      </div>
-
-      <!-- <div class="space-y-2">
-        <h1 class="text-xl font-medium font-netflix_medium">Latest for you</h1>
-
-        <video-carousel :items="latestList" />
-      </div> -->
     </div>
   </div>
+
+  <router-view v-slot="{ Component }">
+    <transition name="fade" mode="out-in">
+      <component :is="Component" />
+    </transition>
+  </router-view>
 </template>
 <script>
+import { useRouter } from "vue-router";
+import { onMounted } from "vue";
+
 import IconPlayFill from "~icons/ph/play-fill";
 import IconInfoCircle from "~icons/bx/bx-info-circle";
 
@@ -102,11 +99,39 @@ import banner from "../../data/banner.json";
 import VideoCard from "../../components/VideoCard.vue";
 import Image from "../../components/Image.vue";
 import VideoCarousel from "../../components/VideoCarousel.vue";
+import Button from "../../components/Button.vue";
 
 export default {
-  components: { VideoCard, Image, IconPlayFill, IconInfoCircle, VideoCarousel },
+  components: {
+    VideoCard,
+    Image,
+    IconPlayFill,
+    IconInfoCircle,
+    VideoCarousel,
+    Button,
+  },
+
   setup() {
+    const router = useRouter();
     const randomIndex = Math.floor(Math.random() * 5);
+    const currentRoute = router.currentRoute;
+
+    const handleScrollPosition = (currentRoute) => {
+      const container = document.querySelector(".home-container");
+      const scrollTop = currentRoute.query.scrollTop || 0;
+
+      if (currentRoute.name === "Info") {
+        container.style.marginTop = `-${scrollTop}px`;
+      } else {
+        container.style.marginTop = 0;
+      }
+    };
+
+    router.afterEach(handleScrollPosition);
+
+    onMounted(() => {
+      handleScrollPosition(currentRoute.value);
+    });
 
     return {
       info: popular[randomIndex],
@@ -114,6 +139,7 @@ export default {
       popularList: popular,
       topRatedList: topRated,
       latestList: latest,
+      currentRoute,
     };
   },
 
@@ -142,11 +168,13 @@ export default {
   );
 }
 
-.banner__info {
-  width: 40%;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
 }
 
-.movie__image {
-  max-width: 25vw;
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

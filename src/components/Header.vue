@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed z-50 w-screen h-16 transition duration-700"
+    class="header fixed z-50 w-screen h-16 transition duration-700"
     :class="[!isTop && 'bg-background']"
   >
     <div class="header__overlay absolute inset-0 w-full h-full"></div>

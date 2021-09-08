@@ -18,7 +18,7 @@ export default {
 
     return {
       source: `https://image.tmdb.org/t/p/${
-        typeof size === "string" ? size : `w-${size}`
+        typeof size === "string" ? size : `w${size}`
       }${src}`,
     };
   },

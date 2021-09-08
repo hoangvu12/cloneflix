@@ -1338,6 +1338,11 @@ vue-demi@^0.10.1:
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.10.1.tgz#229b81395510f02f4ee255344557a12cc0120930"
   integrity sha512-L6Oi+BvmMv6YXvqv5rJNCFHEKSVu7llpWWJczqmAQYOdmPPw5PNYoz1KKS//Fxhi+4QP64dsPjtmvnYGo1jemA==
 
+vue-fragment@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/vue-fragment/-/vue-fragment-1.5.2.tgz#310017170c564c4aad95da14c185c92c6784fd3c"
+  integrity sha512-KEW0gkeNOLJjtXN4jqJhTazez5jtrwimHkE5Few/VxblH4F9EcvJiEsahrV5kg5uKd5U8du4ORKS6QjGE0piYA==
+
 vue-query@^1.10.1:
   version "1.10.1"
   resolved "https://registry.yarnpkg.com/vue-query/-/vue-query-1.10.1.tgz#ed0a124e92a772c07a27383e7ff6e2224f880013"

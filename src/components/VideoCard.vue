@@ -1,16 +1,30 @@
 <template>
   <div
-    class="video-card relative w-full transition duration-300 cursor-pointer"
-    :class="[isScaled ? 'animate-card-hover' : 'animate-card-unhover']"
+    ref="container"
+    class="
+      cursor-pointer
+      video-card
+      relative
+      w-full
+      h-32
+      transition-all
+      duration-300
+    "
+    :class="{
+      'animate-card-hover': isScaled && !isModal,
+      'animate-card-unhover': !isScaled,
+      modal: isModal,
+    }"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
+    @click="handleClick"
   >
-    <div class="w-full h-32">
+    <div class="w-full h-full">
       <Image
         :src="data.backdrop_path"
         size="w300"
         class="w-full h-full object-cover rounded-md"
-        :class="[isScaled && 'rounded-b-none shadow']"
+        :class="{ 'rounded-b-none shadow': isScaled }"
       />
     </div>
 
@@ -69,6 +83,7 @@
 
 <script>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import Image from "./Image.vue";
 import CircleButton from "./CircleButton.vue";
 import IconPlayFill from "~icons/ph/play-fill";
@@ -90,9 +105,12 @@ export default {
     IconPlus,
     IconStar,
   },
-  setup() {
+  setup({ data }) {
     const isScaled = ref(false);
-    const timeout = ref();
+    const isModal = ref(false);
+    const timeout = ref(null);
+    const container = ref(null);
+    const router = useRouter();
 
     const handleMouseEnter = () => {
       if (timeout.value) {
@@ -112,10 +130,23 @@ export default {
       isScaled.value = false;
     };
 
+    const handleClick = () => {
+      router.push({
+        path: "info",
+        query: {
+          id: data.id,
+          scrollTop: document.documentElement.scrollTop,
+        },
+      });
+    };
+
     return {
       isScaled,
+      isModal,
+      container,
       handleMouseEnter,
       handleMouseLeave,
+      handleClick,
     };
   },
 };

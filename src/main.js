@@ -1,7 +1,16 @@
-import { createApp } from "vue";
+import { createApp, h } from "vue";
 
 import App from "./App.vue";
 import router from "./pages";
+import store from "./store";
+
 import "./index.css";
 
-createApp(App).use(router).mount("#app");
+createApp({
+  provide: {
+    store,
+  },
+  render: () => h(App),
+})
+  .use(router)
+  .mount("#app");

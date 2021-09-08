@@ -23,6 +23,7 @@ module.exports = {
         "card-unhover": "card-unhover 300ms forwards",
         "z-hover": "z-hover 300ms forwards",
         "z-unhover": "z-unhover 300ms forwards",
+        fadeIn: "fadeIn 300ms forwards",
       },
       keyframes: {
         "z-hover": {
@@ -43,6 +44,16 @@ module.exports = {
         "card-unhover": {
           "0%": { transform: "scale(1.5)", zIndex: 10 },
           "100%": { transform: "scale(1)", zIndex: 0 },
+        },
+
+        fadeIn: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
+
+        fadeOut: {
+          "0%": { opacity: 1 },
+          "100%": { opacity: 0 },
         },
       },
     },
