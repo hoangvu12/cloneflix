@@ -78,7 +78,12 @@ export default {
   setup() {
     const { currentRoute, getRoutes } = useRouter();
     const routes = getRoutes();
-    const headerRoutes = routes.filter(({ props }) => props.default.isHeader);
+
+    // Somehow the home route placed behind dynamic routes
+    // So I have to sort it back
+    const headerRoutes = routes
+      .sort((a, b) => a.path.length - b.path.length)
+      .filter((route) => route.props?.default?.isHeader);
 
     const isTop = ref(true);
     const showSearch = ref(false);

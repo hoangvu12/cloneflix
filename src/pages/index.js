@@ -1,22 +1,33 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
-const HomePage = () => import("./HomePage/index.vue");
+const BrowsePage = () => import("./BrowsePage/index.vue");
 const InfoPage = () => import("./InfoPage/index.vue");
 const SearchPage = () => import("./SearchPage/index.vue");
 
 const routes = [
   {
     path: "/",
-    component: HomePage,
+    component: BrowsePage,
     name: "Home",
     children: [
       {
         path: "/info",
         component: InfoPage,
         name: "Info",
-        props: { isHeader: false },
       },
     ],
+    props: { isHeader: true },
+  },
+  {
+    path: "/browse/tv",
+    component: BrowsePage,
+    name: "TV Shows",
+    props: { isHeader: true },
+  },
+  {
+    path: "/browse/movies",
+    component: BrowsePage,
+    name: "Movies",
     props: { isHeader: true },
   },
   {
@@ -25,6 +36,7 @@ const routes = [
     name: "Search",
     props: { isHeader: false },
   },
+  { path: "/:pathMatch(.*)*", redirect: "/" },
 ];
 
 const router = createRouter({
