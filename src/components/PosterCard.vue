@@ -37,7 +37,10 @@
           </p>
 
           <div class="flex space-x-2">
-            <p v-if="data.adult" class="border border-gray-400 px-2">18+</p>
+            <div class="flex items-center text-yellow-500">
+              <IconStar />
+              <p>{{ data.vote_average.toFixed(1) }}</p>
+            </div>
 
             <p>{{ data.release_date }}</p>
           </div>
@@ -55,12 +58,13 @@
 <script>
 import IconPlayFill from "~icons/ph/play-fill";
 import IconPlus from "~icons/ic/outline-plus";
+import IconStar from "~icons/ic/sharp-star-purple500";
 
 import CircleButton from "./CircleButton.vue";
 import Image from "./Image.vue";
 
 export default {
-  components: { Image, CircleButton, IconPlus, IconPlayFill },
+  components: { Image, CircleButton, IconPlus, IconPlayFill, IconStar },
   props: ["data"],
   methods: {
     handleClick() {

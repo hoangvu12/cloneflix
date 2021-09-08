@@ -55,7 +55,7 @@
             <div class="flex items-center space-x-2">
               <div class="flex items-center text-yellow-500">
                 <IconStar />
-                <p>{{ info.vote_average }}</p>
+                <p>{{ info.vote_average.toFixed(1) }}</p>
               </div>
 
               <p>{{ info.release_date }}</p>
