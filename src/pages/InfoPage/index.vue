@@ -60,7 +60,7 @@
 
               <p>{{ info.release_date }}</p>
 
-              <p class="border border-gray-500 px-2">18+</p>
+              <p v-if="info.adult" class="border border-gray-500 px-2">18+</p>
             </div>
 
             <p class="text-base">

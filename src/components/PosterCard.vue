@@ -37,7 +37,7 @@
           </p>
 
           <div class="flex space-x-2">
-            <p class="border border-gray-400 px-2">18+</p>
+            <p v-if="data.adult" class="border border-gray-400 px-2">18+</p>
 
             <p>{{ data.release_date }}</p>
           </div>
