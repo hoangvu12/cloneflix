@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 
 const HomePage = () => import("./HomePage/index.vue");
 const InfoPage = () => import("./InfoPage/index.vue");
+const SearchPage = () => import("./SearchPage/index.vue");
 
 const routes = [
   {
@@ -17,6 +18,12 @@ const routes = [
       },
     ],
     props: { isHeader: true },
+  },
+  {
+    path: "/search",
+    component: SearchPage,
+    name: "Search",
+    props: { isHeader: false },
   },
 ];
 

@@ -2,6 +2,7 @@
   <div
     class="header fixed z-50 w-screen h-16 transition duration-700"
     :class="[!isTop && 'bg-background']"
+    @click="showSearch = false"
   >
     <div class="header__overlay absolute inset-0 w-full h-full"></div>
     <div
@@ -42,7 +43,27 @@
           </router-link>
         </div>
       </div>
-      <icon-round-search class="w-6 h-6" />
+      <div
+        class="cursor-pointer px-2 py-1 flex"
+        :class="[showSearch && 'space-x-2 bg-black border border-gray-300']"
+        @click.stop="showSearch = true"
+      >
+        <icon-round-search class="w-6 h-6" />
+
+        <input
+          placeholder="Keyword"
+          class="
+            bg-transparent
+            focus:border-none
+            focus:outline-none
+            text-white
+            placeholder-text-400
+            transition-all
+            duration-300
+          "
+          :class="showSearch ? 'w-[14rem]' : 'w-0'"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -60,11 +81,13 @@ export default {
     const headerRoutes = routes.filter(({ props }) => props.default.isHeader);
 
     const isTop = ref(true);
+    const showSearch = ref(false);
 
     return {
       currentRoute,
       routes: headerRoutes,
       isTop,
+      showSearch,
     };
   },
 
