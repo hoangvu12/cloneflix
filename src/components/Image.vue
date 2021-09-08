@@ -1,5 +1,10 @@
 <template>
-  <img v-show="loaded" v-bind="$attrs" :src="source" @load="loaded = true" />
+  <img
+    :class="[!loaded && 'hidden']"
+    v-bind="$attrs"
+    :src="source"
+    @load="loaded = true"
+  />
   <div
     v-if="!loaded"
     class="image-loader"
@@ -10,7 +15,7 @@
 </template>
 
 <script>
-import { ref, computed } from "vue";
+import { computed } from "vue";
 
 export default {
   props: {
@@ -25,10 +30,15 @@ export default {
       type: String,
     },
   },
+
+  data() {
+    return {
+      loaded: false,
+    };
+  },
+
   setup(props) {
     const { size, src } = props;
-
-    const loaded = ref(false);
 
     const imageSize = computed(() =>
       typeof size === "string" ? size : `w${size}`
@@ -36,7 +46,6 @@ export default {
 
     return {
       source: `https://image.tmdb.org/t/p/${imageSize.value}${src}`,
-      loaded,
     };
   },
 };
