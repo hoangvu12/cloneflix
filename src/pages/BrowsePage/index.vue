@@ -73,6 +73,7 @@
 <script>
 import { useRouter } from "vue-router";
 import { onMounted } from "vue";
+import useMovies from "../../hooks/useMovies";
 
 import IconPlayFill from "~icons/ph/play-fill";
 import IconInfoCircle from "~icons/bx/bx-info-circle";
@@ -99,6 +100,7 @@ export default {
   },
 
   setup() {
+    const [data, isLoading, isError] = useMovies();
     const router = useRouter();
     const randomIndex = Math.floor(Math.random() * 5);
     const currentRoute = router.currentRoute;
@@ -127,6 +129,9 @@ export default {
       topRatedList: topRated,
       latestList: latest,
       currentRoute,
+      data,
+      isLoading,
+      isError,
     };
   },
 

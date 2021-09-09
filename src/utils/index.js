@@ -16,3 +16,7 @@ export const randomString = (length = 7) => {
   }
   return result;
 };
+
+export const randomIndex = (length) => {
+  return Math.floor(Math.random() * length);
+};
