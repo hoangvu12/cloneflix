@@ -19,7 +19,7 @@
             <Image
               :src="mostQuality(banner.logos).file_path"
               alt="movie_logo"
-              class="w-full object-contain max-w-[25vw] mb-4"
+              class="min-h-[4rem] w-full object-contain max-w-[25vw] mb-4"
             />
 
             <div class="space-y-2">
