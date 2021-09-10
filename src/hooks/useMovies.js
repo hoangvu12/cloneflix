@@ -1,7 +1,5 @@
-import { ref } from "vue";
-import useQuery from "../hooks/useQuery";
 import {
-  getImages,
+  getMovieImages,
   getPopularMovies,
   getTopRatedMovies,
 } from "../services/movies";
@@ -29,7 +27,7 @@ const useMovies = () => {
 
         const index = randomIndex(results.length);
 
-        return getImages({ movieId: results[index].id });
+        return getMovieImages({ movieId: results[index].id });
       },
     },
   ]);

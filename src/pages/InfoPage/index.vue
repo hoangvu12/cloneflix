@@ -11,10 +11,10 @@
     "
     @click.self="handleCloseClick"
   >
-    <div class="info-container">
+    <div class="info-container" v-if="!isLoading">
       <div class="relative w-full h-[30rem]">
         <Image
-          :src="info.backdrop_path"
+          :src="data.details.backdrop_path"
           alt="info banner"
           class="w-full h-full object-cover"
         />
@@ -27,7 +27,9 @@
         </circle-button>
 
         <div class="info__overlay">
-          <h1 class="text-2xl font-netflix_medium mb-6">{{ info.title }}</h1>
+          <h1 class="text-2xl font-netflix_medium mb-6">
+            {{ data.details.title }}
+          </h1>
 
           <div class="flex items-center space-x-2">
             <Button class="bg-white text-black">
@@ -50,21 +52,23 @@
       <div class="space-y-8 px-12 my-3">
         <div class="space-x-8 flex space-y-2">
           <div class="flex-1 flex-grow-[2] space-y-4">
-            <p class="text-base text-gray-300">{{ info.tagline }}</p>
+            <p class="text-base text-gray-300">{{ data.details.tagline }}</p>
 
             <div class="flex items-center space-x-2">
               <div class="flex items-center text-yellow-500">
                 <IconStar />
-                <p>{{ info.vote_average.toFixed(1) }}</p>
+                <p>{{ data.details.vote_average.toFixed(1) }}</p>
               </div>
 
-              <p>{{ info.release_date }}</p>
+              <p>{{ data.details.release_date }}</p>
 
-              <p v-if="info.adult" class="border border-gray-500 px-2">18+</p>
+              <p v-if="data.details.adult" class="border border-gray-500 px-2">
+                18+
+              </p>
             </div>
 
             <p class="text-base">
-              {{ info.overview }}
+              {{ data.details.overview }}
             </p>
           </div>
 
@@ -72,7 +76,7 @@
             <div class="space-x-2">
               <span class="text-secondary">Genres:</span>
               <span class="text-white">
-                {{ info.genres.map(({ name }) => name).join(", ") }}
+                {{ data.details.genres.map(({ name }) => name).join(", ") }}
               </span>
             </div>
 
@@ -80,7 +84,9 @@
               <span class="text-secondary">Companies:</span>
               <span class="text-white">
                 {{
-                  info.production_companies.map(({ name }) => name).join(", ")
+                  data.details.production_companies
+                    .map(({ name }) => name)
+                    .join(", ")
                 }}
               </span>
             </div>
@@ -89,7 +95,9 @@
               <span class="text-secondary">Countries:</span>
               <span class="text-white">
                 {{
-                  info.production_countries.map(({ name }) => name).join(", ")
+                  data.details.production_countries
+                    .map(({ name }) => name)
+                    .join(", ")
                 }}
               </span>
             </div>
@@ -101,7 +109,7 @@
           <poster-card
             class="col-span-1"
             :data="card"
-            v-for="card in similars"
+            v-for="card in data.similar_movies.results"
             :key="card.id"
           />
         </div>
@@ -123,14 +131,21 @@ import Button from "../../components/Button.vue";
 import CircleButton from "../../components/CircleButton.vue";
 import Image from "../../components/Image.vue";
 
-import info from "../../data/info.json";
-import similars from "../../data/similars.json";
+import useMovieDetails from "../../hooks/useMovieDetails";
+
+import { useRoute } from "vue-router";
 
 export default {
-  data() {
+  setup() {
+    const route = useRoute();
+    const { id } = route.query;
+
+    const [data, isLoading, isError] = useMovieDetails(id);
+
     return {
-      info,
-      similars,
+      data,
+      isLoading,
+      isError,
     };
   },
   components: {
