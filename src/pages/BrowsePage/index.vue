@@ -17,10 +17,15 @@
         <div class="banner__overlay absolute inset-0 flex items-center px-12">
           <div class="w-[40%] space-y-6">
             <Image
+              v-if="bannerInfo.logo"
               :src="bannerInfo.logo"
               alt="movie_logo"
               class="min-h-[4rem] w-full object-contain max-w-[25vw] mb-4"
             />
+
+            <h1 v-else class="text-xl font-bold line-clamp-2">
+              {{ bannerInfo.title }}
+            </h1>
 
             <div class="space-y-2">
               <h1 class="text-xl font-bold line-clamp-2">
@@ -129,8 +134,8 @@ export default {
       const images = data.value.images;
 
       return {
-        banner: mostQuality(images?.backdrops).file_path,
-        logo: mostQuality(images?.logos).file_path,
+        banner: mostQuality(images?.backdrops)?.file_path,
+        logo: mostQuality(images?.logos)?.file_path,
         ...data.value.popular.results.find((result) => result.id === images.id),
       };
     });
@@ -143,8 +148,6 @@ export default {
       isError,
     };
   },
-
-  methods: {},
 };
 </script>
 <style>
