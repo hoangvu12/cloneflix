@@ -1,34 +1,39 @@
-import { ref, watch } from "vue";
+import { ref, computed } from "vue";
 import { useQuery } from "vue-query";
 
 const useQueries = (queries) => {
   const queryResults = ref(
-    queries.map(({ key, ...query }) => {
-      return { key, query: useQuery(query.name, query.fetch, query.options) };
-    })
+    queries.reduce((prev, curr) => {
+      const depend = curr.depend?.(prev);
+
+      // If the query is depending on another query, return the queryResults
+      // To let the query decide which data it gonna depends on.
+      const options = curr.depend
+        ? { ...curr.options, enabled: !!depend }
+        : curr.options;
+
+      prev.push({
+        key: curr.key,
+        query: useQuery(curr.name, () => curr.fetch(depend), options),
+      });
+
+      return prev;
+    }, [])
   );
 
-  let data = ref(null);
-  let isLoading = ref(false);
-  let isError = ref(false);
+  let data = computed(() => {
+    return queryResults.value.reduce(
+      (prev, curr) => Object.assign(prev, { [curr.key]: curr.query.data }),
+      {}
+    );
+  });
 
-  watch(
-    () => queryResults.value,
-    (value) => {
-      if (value.some((result) => result.query.isLoading?.value)) {
-        isLoading.value = true;
-      } else {
-        data.value = value.reduce(
-          (prev, curr) => Object.assign(prev, { [curr.key]: curr.query.data }),
-          {}
-        );
-      }
+  let isLoading = computed(() =>
+    queryResults.value.some((result) => result.query.isLoading?.value)
+  );
 
-      if (value.some(({ query: { isError } }) => isError.value)) {
-        isError.value = true;
-      }
-    },
-    { deep: true }
+  let isError = computed(() =>
+    queryResults.value.some((result) => result.query.isError?.value)
   );
 
   return [data, isLoading, isError];

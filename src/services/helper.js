@@ -16,7 +16,7 @@ export const queryEndpoint =
 
 export const queryPageEndpoint =
   (endpoint) =>
-  async (page = 1, options) => {
+  async ({ page = 1, options }) => {
     const { data } = await instance.get(endpoint, {
       params: { page },
       ...options,

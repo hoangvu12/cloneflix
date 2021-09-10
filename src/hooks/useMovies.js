@@ -12,13 +12,25 @@ const useMovies = () => {
   const [data, isLoading, isError] = useQueries([
     {
       name: "movie_popular",
-      fetch: () => getPopularMovies(1),
+      fetch: () => getPopularMovies({ page: 1 }),
       key: "popular",
     },
     {
       name: "movie_top_rated",
-      fetch: () => getTopRatedMovies(1),
+      fetch: () => getTopRatedMovies({ page: 1 }),
       key: "top_rated",
+    },
+    {
+      key: "images",
+      depend: (prev) => prev.find((result) => result.key === "popular"),
+      name: "movie_images",
+      fetch: ({ query }) => {
+        const results = query.data.value.results;
+
+        const index = randomIndex(results.length);
+
+        return getImages({ movieId: results[index].id });
+      },
     },
   ]);
 

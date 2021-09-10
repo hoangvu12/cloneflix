@@ -8,7 +8,14 @@ export default {
     Footer,
   },
   setup() {
-    useQueryProvider();
+    useQueryProvider({
+      defaultOptions: {
+        queries: {
+          refetchOnWindowFocus: false,
+          refetchOnMount: false,
+        },
+      },
+    });
   },
 };
 </script>
