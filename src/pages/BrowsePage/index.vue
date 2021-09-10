@@ -8,7 +8,7 @@
       <!-- Banner -->
       <div class="banner-container relative w-full h-full">
         <Image
-          :src="bannerInfo.banner"
+          :src="latest.backdrop_path"
           alt="banner"
           class="object-cover w-full h-full"
           loadingClass="w-screen h-[120vh]"
@@ -16,20 +16,13 @@
 
         <div class="banner__overlay absolute inset-0 flex items-center px-12">
           <div class="w-[40%] space-y-6">
-            <Image
-              v-if="bannerInfo.logo"
-              :src="bannerInfo.logo"
-              alt="movie_logo"
-              class="min-h-[4rem] w-full object-contain max-w-[25vw] mb-4"
-            />
-
-            <h1 v-else class="text-xl font-bold line-clamp-2">
-              {{ bannerInfo.title }}
+            <h1 class="text-3xl font-bold line-clamp-2">
+              {{ latest.title }}
             </h1>
 
             <div class="space-y-2">
               <p class="text-lg line-clamp-4 font-medium">
-                {{ bannerInfo.overview }}
+                {{ latest.overview }}
               </p>
             </div>
 
@@ -45,6 +38,7 @@
                   hover:bg-opacity-40
                   shadow-lg
                 "
+                @click="handleMoreInfoClick"
               >
                 <IconInfoCircle />
                 <p class="text-bold">More info</p>
@@ -84,6 +78,7 @@ import Image from "../../components/Image.vue";
 import VideoCarousel from "../../components/VideoCarousel.vue";
 import Button from "../../components/Button.vue";
 import Section from "./Section.vue";
+import { randomIndex } from "../../utils";
 
 export default {
   components: {
@@ -116,30 +111,34 @@ export default {
 
     router.afterEach(handleScrollPosition);
 
-    const mostQuality = (images) => {
-      return [...images].sort((a, b) => b.width - a.width)[0];
-    };
-
     onMounted(() => {
       handleScrollPosition(currentRoute.value);
     });
 
-    const bannerInfo = computed(() => {
+    const latest = computed(() => {
       if (isLoading.value) return;
 
-      const images = data.value.images;
+      const latest = data.value.latest;
+      const index = randomIndex(latest.results.length);
 
-      return {
-        banner: mostQuality(images?.backdrops)?.file_path,
-        logo: mostQuality(images?.logos)?.file_path,
-        ...data.value.popular.results.find((result) => result.id === images.id),
-      };
+      return latest.results[index];
     });
 
+    const handleMoreInfoClick = () => {
+      router.push({
+        path: "info",
+        query: {
+          id: latest.value.id,
+          scrollTop: document.documentElement.scrollTop,
+        },
+      });
+    };
+
     return {
+      handleMoreInfoClick,
       currentRoute,
       data,
-      bannerInfo,
+      latest,
       isLoading,
       isError,
     };

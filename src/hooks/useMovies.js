@@ -1,9 +1,8 @@
 import {
-  getMovieImages,
+  getLatestMovies,
   getPopularMovies,
   getTopRatedMovies,
 } from "../services/movies";
-import { randomIndex } from "../utils";
 import useQueries from "./useQueries";
 
 const useMovies = () => {
@@ -19,16 +18,9 @@ const useMovies = () => {
       key: "top_rated",
     },
     {
-      key: "images",
-      depend: (prev) => prev.find((result) => result.key === "popular"),
-      name: "movie_images",
-      fetch: ({ query }) => {
-        const results = query.data.value.results;
-
-        const index = randomIndex(results.length);
-
-        return getMovieImages({ movieId: results[index].id });
-      },
+      key: "latest",
+      name: "movie_latest",
+      fetch: getLatestMovies,
     },
   ]);
 
