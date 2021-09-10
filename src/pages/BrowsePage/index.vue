@@ -4,11 +4,11 @@
     v-bind="$attrs"
     :class="[currentRoute.name === 'Info' && 'fixed']"
   >
-    <div>
+    <div v-if="!isLoading">
       <!-- Banner -->
       <div class="banner-container relative w-full h-full">
         <Image
-          :src="mostQuality(banner.backdrops).file_path"
+          :src="bannerInfo.banner"
           alt="banner"
           class="object-cover w-full h-full"
           loadingClass="w-screen h-[120vh]"
@@ -17,18 +17,18 @@
         <div class="banner__overlay absolute inset-0 flex items-center px-12">
           <div class="w-[40%] space-y-6">
             <Image
-              :src="mostQuality(banner.logos).file_path"
+              :src="bannerInfo.logo"
               alt="movie_logo"
               class="min-h-[4rem] w-full object-contain max-w-[25vw] mb-4"
             />
 
             <div class="space-y-2">
               <h1 class="text-xl font-bold line-clamp-2">
-                {{ info.title }}
+                {{ bannerInfo.title }}
               </h1>
 
               <p class="text-lg line-clamp-4 font-medium">
-                {{ info.overview }}
+                {{ bannerInfo.overview }}
               </p>
             </div>
 
@@ -57,9 +57,9 @@
 
       <!-- Lists -->
       <div class="-mt-28 px-12 relative z-10 space-y-12">
-        <Section title="Popular on Netflix" :items="popularList" />
-        <Section title="Top rated" :items="topRatedList" />
-        <Section title="Latest films" :items="latestList" />
+        <Section title="Popular on Netflix" :items="data.popular.results" />
+        <Section title="Top rated" :items="data.top_rated.results" />
+        <!-- <Section title="Latest films" :items="latestList" /> -->
       </div>
     </div>
   </div>
@@ -72,16 +72,12 @@
 </template>
 <script>
 import { useRouter } from "vue-router";
-import { onMounted } from "vue";
+import { computed, onMounted } from "vue";
 import useMovies from "../../hooks/useMovies";
 
 import IconPlayFill from "~icons/ph/play-fill";
 import IconInfoCircle from "~icons/bx/bx-info-circle";
 
-import popular from "../../data/popular.json";
-import topRated from "../../data/top-rated.json";
-import latest from "../../data/latest.json";
-import banner from "../../data/banner.json";
 import VideoCard from "../../components/VideoCard.vue";
 import Image from "../../components/Image.vue";
 import VideoCarousel from "../../components/VideoCarousel.vue";
@@ -102,10 +98,11 @@ export default {
   setup() {
     const [data, isLoading, isError] = useMovies();
     const router = useRouter();
-    const randomIndex = Math.floor(Math.random() * 5);
     const currentRoute = router.currentRoute;
 
     const handleScrollPosition = (currentRoute) => {
+      if (isLoading.value) return;
+
       const container = document.querySelector(".banner-container");
       const scrollTop = currentRoute.query.scrollTop || 0;
 
@@ -118,28 +115,36 @@ export default {
 
     router.afterEach(handleScrollPosition);
 
+    const mostQuality = (images) => {
+      return [...images].sort((a, b) => b.width - a.width)[0];
+    };
+
     onMounted(() => {
       handleScrollPosition(currentRoute.value);
     });
 
+    const bannerInfo = computed(() => {
+      if (isLoading.value) return;
+
+      const images = data.value.images;
+
+      return {
+        banner: mostQuality(images?.backdrops).file_path,
+        logo: mostQuality(images?.logos).file_path,
+        ...data.value.popular.results.find((result) => result.id === images.id),
+      };
+    });
+
     return {
-      info: popular[randomIndex],
-      banner,
-      popularList: popular,
-      topRatedList: topRated,
-      latestList: latest,
       currentRoute,
       data,
+      bannerInfo,
       isLoading,
       isError,
     };
   },
 
-  methods: {
-    mostQuality(images) {
-      return images.sort((a, b) => b.width - a.width)[0];
-    },
-  },
+  methods: {},
 };
 </script>
 <style>

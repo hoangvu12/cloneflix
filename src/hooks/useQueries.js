@@ -29,11 +29,11 @@ const useQueries = (queries) => {
   });
 
   let isLoading = computed(() =>
-    queryResults.value.some((result) => result.query.isLoading?.value)
+    queryResults.value.some((result) => result.query.isLoading)
   );
 
   let isError = computed(() =>
-    queryResults.value.some((result) => result.query.isError?.value)
+    queryResults.value.some((result) => result.query.isError)
   );
 
   return [data, isLoading, isError];
