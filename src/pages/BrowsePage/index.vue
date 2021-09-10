@@ -28,10 +28,6 @@
             </h1>
 
             <div class="space-y-2">
-              <h1 class="text-xl font-bold line-clamp-2">
-                {{ bannerInfo.title }}
-              </h1>
-
               <p class="text-lg line-clamp-4 font-medium">
                 {{ bannerInfo.overview }}
               </p>
