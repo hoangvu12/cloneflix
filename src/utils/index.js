@@ -17,6 +17,44 @@ export const randomString = (length = 7) => {
   return result;
 };
 
+export const slugify = (str) => {
+  str = str.replace(/^\s+|\s+$/g, "");
+
+  // Make the string lowercase
+  str = str.toLowerCase();
+
+  // Remove accents, swap ñ for n, etc
+  const from =
+    "ÁÄÂÀÃÅČÇĆĎÉĚËÈÊẼĔȆÍÌÎÏŇÑÓÖÒÔÕØŘŔŠŤÚŮÜÙÛÝŸŽáäâàãåčçćďéěëèêẽĕȇíìîïňñóöòôõøðřŕšťúůüùûýÿžþÞĐđßÆa·/_,:;";
+  const to =
+    "AAAAAACCCDEEEEEEEEIIIINNOOOOOORRSTUUUUUYYZaaaaaacccdeeeeeeeeiiiinnooooooorrstuuuuuyyzbBDdBAa------";
+  for (let i = 0, l = from.length; i < l; i++) {
+    str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
+  }
+
+  // Remove invalid chars
+  str = str
+    .replace(/[^a-z0-9 -]/g, "")
+    // Collapse whitespace and replace by -
+    .replace(/\s+/g, "-")
+    // Collapse dashes
+    .replace(/-+/g, "-");
+
+  return str;
+};
+
 export const randomIndex = (length) => {
   return Math.floor(Math.random() * length);
+};
+
+// https://stackoverflow.com/questions/19269545/how-to-get-a-number-of-random-elements-from-an-array
+
+export const randomElement = (array, length = 1) => {
+  // Shuffle array
+  const shuffled = array.sort(() => 0.5 - Math.random());
+
+  // Get sub-array of first n elements after shuffled
+  let selected = shuffled.slice(0, length);
+
+  return selected;
 };

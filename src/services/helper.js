@@ -9,6 +9,7 @@ export const queryEndpoint =
       typeof endpoint === "function"
         ? endpoint({ options, ...args })
         : endpoint;
+
     const { data } = await instance.get(finalEndpoint, {
       ...defaultOptions,
       ...options,
@@ -20,8 +21,13 @@ export const queryEndpoint =
 export const queryPageEndpoint =
   (endpoint, defaultOptions) =>
   async (value = {}) => {
-    const { page = 1, options } = value;
-    const { data } = await instance.get(endpoint, {
+    const { page = 1, options, ...args } = value;
+    const finalEndpoint =
+      typeof endpoint === "function"
+        ? endpoint({ options, ...args })
+        : endpoint;
+
+    const { data } = await instance.get(finalEndpoint, {
       params: { page },
       ...defaultOptions,
       ...options,

@@ -7,6 +7,13 @@ export const getLatestMovies = queryEndpoint("/discover/movie", {
     "vote_count.gte": 1,
   },
 });
+
+export const getTrendingMovies = queryPageEndpoint("/trending/movie/week", {
+  params: {
+    sort_by: "popularity.desc",
+  },
+});
+
 export const getPopularMovies = queryPageEndpoint("/movie/popular");
 export const getTopRatedMovies = queryPageEndpoint("/movie/top_rated");
 export const getMovieDetails = queryEndpoint(
@@ -17,4 +24,12 @@ export const getMovieImages = queryEndpoint(
 );
 export const getSimilarMovies = queryEndpoint(
   ({ movieId }) => `/movie/${movieId}/similar`
+);
+export const getGenresMovies = queryPageEndpoint(
+  ({ genreId }) => `/discover/movie?with_genres=${genreId}`
+  // {
+  //   params: {
+  //     sort_by: "popularity.desc",
+  //   },
+  // }
 );
