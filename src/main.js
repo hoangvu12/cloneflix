@@ -18,6 +18,7 @@ createApp({
 })
   .use(router)
   .use(VueLazyload, {
+    observer: true,
     preLoad: 1.3,
     loading: loadingImage,
     error: errorImage,

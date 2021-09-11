@@ -83,7 +83,6 @@ import { useRouter } from "vue-router";
 import IconPlayFill from "~icons/ph/play-fill";
 import IconPlus from "~icons/ic/outline-plus";
 import IconKeyboardArrowDown from "~icons/ic/outline-keyboard-arrow-down";
-import IconStar from "~icons/ic/sharp-star-purple500";
 import IconThumbUp from "~icons/fluent/thumb-like-20-regular";
 import IconThumbDown from "~icons/fluent/thumb-dislike-24-regular";
 
@@ -101,7 +100,6 @@ export default {
     CircleButton,
     IconKeyboardArrowDown,
     IconPlus,
-    IconStar,
   },
   setup({ data }) {
     const isScaled = ref(false);

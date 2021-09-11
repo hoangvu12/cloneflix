@@ -45,4 +45,8 @@ export default {
 .image-loader--text {
   @apply absolute left-1/2 -translate-x-1/2 bottom-5 line-clamp-1 w-5/6;
 }
+
+img[lazy="loaded"] {
+  @apply animate-fadeIn;
+}
 </style>
