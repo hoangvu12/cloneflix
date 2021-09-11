@@ -1,4 +1,3 @@
-import useQuery from "./useQuery";
 import { getMovieDetails, getSimilarMovies } from "../services/movies";
 import useQueries from "./useQueries";
 
@@ -12,7 +11,7 @@ const useMovieDetails = (movieId) => {
     {
       name: ["movie_similar-movies", { id: movieId }],
       fetch: () => getSimilarMovies({ movieId }),
-      key: "similar_movies",
+      key: "similars",
     },
   ]);
 

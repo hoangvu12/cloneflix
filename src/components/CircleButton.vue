@@ -8,7 +8,6 @@
       rounded-full
       p-2
       border border-secondary
-      text-white
       hover:border-gray-300
     "
   >

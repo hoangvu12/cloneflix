@@ -1,35 +1,29 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
-const BrowsePage = () => import("./BrowsePage/index.vue");
+// const BrowsePage = () => import("./BrowsePage/index.vue");
+// const TVPage = () => import("./TVPage/index.vue");
 const InfoPage = () => import("./InfoPage/index.vue");
 const SearchPage = () => import("./SearchPage/index.vue");
 
 const routes = [
   {
     path: "/",
-    component: BrowsePage,
+    component: () => import("./BrowsePage/index.vue"),
     name: "Home",
-    children: [
-      {
-        path: "/info",
-        component: InfoPage,
-        name: "Info",
-      },
-    ],
     props: { isHeader: true },
   },
   {
     path: "/browse/tv",
-    component: BrowsePage,
+    component: () => import("./TVPage/index.vue"),
     name: "TV Shows",
     props: { isHeader: true },
   },
-  {
-    path: "/browse/movies",
-    component: BrowsePage,
-    name: "Movies",
-    props: { isHeader: true },
-  },
+  // {
+  //   path: "/browse/movies",
+  //   component: BrowsePage,
+  //   name: "Movies",
+  //   props: { isHeader: true },
+  // },
   {
     path: "/search",
     component: SearchPage,

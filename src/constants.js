@@ -1,5 +1,7 @@
 export const GITHUB_URL = "https://github.com/hoangvu12";
 
+export const NETFLIX_NETWORK_ID = 213;
+
 export const MOVIE_GENRES = [
   { id: 28, name: "Action" },
   { id: 12, name: "Adventure" },
@@ -40,3 +42,5 @@ export const TV_GENRES = [
   { id: 10768, name: "War & Politics" },
   { id: 37, name: "Western" },
 ];
+
+export const GENRES = [...TV_GENRES, ...MOVIE_GENRES];

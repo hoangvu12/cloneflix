@@ -53,6 +53,11 @@
   resolved "https://registry.yarnpkg.com/@iconify/json/-/json-1.1.397.tgz#19f17571e8048434d143bedcb62a16e2d845a79d"
   integrity sha512-rmWTcKn0rptVVRBMffr9T6VjgiEAVBSGHAB+mrUWEA/smQUMy7Pv36TjuASqzWcjeiwg6/EbvWwsNv+Nh5Ze0g==
 
+"@jambonn/vue-lazyload@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@jambonn/vue-lazyload/-/vue-lazyload-1.0.8.tgz#3a148afcf8dd96085f0b99906fefa469f21d72db"
+  integrity sha512-ljpahX+K50ejq62O5CuYl7PSnEmeSHqkQ+sG58tV13wnokqCLuhHnHycnVxSwBhEx8Ssu+Oga5ixfCsgnu+NQA==
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -1337,11 +1342,6 @@ vue-demi@^0.10.1:
   version "0.10.1"
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.10.1.tgz#229b81395510f02f4ee255344557a12cc0120930"
   integrity sha512-L6Oi+BvmMv6YXvqv5rJNCFHEKSVu7llpWWJczqmAQYOdmPPw5PNYoz1KKS//Fxhi+4QP64dsPjtmvnYGo1jemA==
-
-vue-fragment@^1.5.2:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/vue-fragment/-/vue-fragment-1.5.2.tgz#310017170c564c4aad95da14c185c92c6784fd3c"
-  integrity sha512-KEW0gkeNOLJjtXN4jqJhTazez5jtrwimHkE5Few/VxblH4F9EcvJiEsahrV5kg5uKd5U8du4ORKS6QjGE0piYA==
 
 vue-query@^1.10.1:
   version "1.10.1"

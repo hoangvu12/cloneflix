@@ -1,6 +1,8 @@
 import { queryEndpoint, queryPageEndpoint } from "./helper";
 
-export const getLatestMovies = queryEndpoint("/discover/movie", {
+export const discoverMovies = queryPageEndpoint("/discover/movie");
+
+export const getLatestMovies = queryPageEndpoint("/discover/movie", {
   params: {
     sort_by: "release_date.desc",
     include_adult: true,
@@ -27,9 +29,4 @@ export const getSimilarMovies = queryEndpoint(
 );
 export const getGenresMovies = queryPageEndpoint(
   ({ genreId }) => `/discover/movie?with_genres=${genreId}`
-  // {
-  //   params: {
-  //     sort_by: "popularity.desc",
-  //   },
-  // }
 );

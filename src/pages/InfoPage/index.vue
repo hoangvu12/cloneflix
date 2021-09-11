@@ -28,7 +28,7 @@
 
         <div class="info__overlay">
           <h1 class="text-2xl font-netflix_medium mb-6">
-            {{ data.details.title }}
+            {{ data.details.title || data.details.original_name }}
           </h1>
 
           <div class="flex items-center space-x-2">
@@ -60,7 +60,9 @@
                 <p>{{ data.details.vote_average.toFixed(1) }}</p>
               </div>
 
-              <p>{{ data.details.release_date }}</p>
+              <p>
+                {{ data.details.release_date || data.details.first_air_date }}
+              </p>
 
               <p v-if="data.details.adult" class="border border-gray-500 px-2">
                 18+
@@ -109,7 +111,7 @@
           <poster-card
             class="col-span-1"
             :data="card"
-            v-for="card in data.similar_movies.results"
+            v-for="card in data.similars.results"
             :key="card.id"
           />
         </div>
@@ -132,15 +134,21 @@ import CircleButton from "../../components/CircleButton.vue";
 import Image from "../../components/Image.vue";
 
 import useMovieDetails from "../../hooks/useMovieDetails";
+import useTVDetails from "../../hooks/useTVDetails";
 
 import { useRoute } from "vue-router";
+
+const useFetch = {
+  tv: useTVDetails,
+  movie: useMovieDetails,
+};
 
 export default {
   setup() {
     const route = useRoute();
-    const { id } = route.query;
+    const { id, type = "movie" } = route.query;
 
-    const [data, isLoading, isError] = useMovieDetails(id);
+    const [data, isLoading, isError] = useFetch[type](id);
 
     return {
       data,

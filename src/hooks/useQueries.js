@@ -1,7 +1,11 @@
 import { ref, computed } from "vue";
 import { useQuery } from "vue-query";
 
-const useQueries = (queries) => {
+let cache = {};
+
+const useQueries = (queries, name = "") => {
+  if (name in cache) return [cache[name].value, false, false];
+
   const queryResults = ref(
     queries.reduce((prev, curr) => {
       const depend = curr.depend?.(prev);
@@ -21,20 +25,23 @@ const useQueries = (queries) => {
     }, [])
   );
 
+  let isLoading = computed(() =>
+    queryResults.value.some((result) => result.query.isLoading)
+  );
+
   let data = computed(() => {
+    if (isLoading.value) return null;
     return queryResults.value.reduce(
       (prev, curr) => Object.assign(prev, { [curr.key]: curr.query.data }),
       {}
     );
   });
 
-  let isLoading = computed(() =>
-    queryResults.value.some((result) => result.query.isLoading)
-  );
-
   let isError = computed(() =>
     queryResults.value.some((result) => result.query.isError)
   );
+
+  cache[name] = computed(() => data);
 
   return [data, isLoading, isError];
 };

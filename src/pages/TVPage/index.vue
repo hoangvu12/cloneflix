@@ -4,7 +4,7 @@
     v-bind="$attrs"
     :class="[$route.name === 'Info' && 'fixed']"
   >
-    <!-- <h1 class="mt-28">Browse Page</h1> -->
+    <!-- <h1 class="mt-28">TV Page</h1> -->
     <div v-if="isLoading" class="mt-28">
       <p>Loading</p>
     </div>
@@ -18,7 +18,7 @@
   </div>
 </template>
 <script>
-import useMovies from "../../hooks/useMovies";
+import useTV from "../../hooks/useTV";
 
 import SectionContainer from "../../components/SectionContainer.vue";
 import Banner from "../../components/Banner.vue";
@@ -30,7 +30,8 @@ export default {
   },
 
   setup() {
-    const [data, isLoading, isError] = useMovies();
+    const [data, isLoading, isError] = useTV();
+
     return {
       data,
       isLoading,
@@ -39,5 +40,3 @@ export default {
   },
 };
 </script>
-<style>
-</style>

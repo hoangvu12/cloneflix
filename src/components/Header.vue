@@ -1,6 +1,6 @@
 <template>
   <div
-    class="header fixed z-50 w-screen h-16 transition duration-700"
+    class="header top-0 fixed z-50 w-screen h-16 transition duration-700"
     :class="[!isTop && 'bg-background']"
     @click="showSearch = false"
   >

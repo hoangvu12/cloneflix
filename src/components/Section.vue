@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import VideoCarousel from "../../components/VideoCarousel.vue";
+import VideoCarousel from "./VideoCarousel.vue";
 
 export default {
   props: ["items", "title"],

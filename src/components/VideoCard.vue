@@ -22,7 +22,7 @@
     <div class="w-full h-full">
       <Image
         :src="data.backdrop_path"
-        size="w300"
+        :size="300"
         class="w-full h-full object-cover rounded-md"
         :class="{ 'rounded-b-none shadow': isScaled }"
         :alt="data.title"
@@ -34,7 +34,7 @@
         absolute
         top-full
         w-full
-        h-28
+        h-26
         bg-background
         rounded-b-md
         transition-all
@@ -68,31 +68,28 @@
         </circle-button>
       </div>
 
-      <p class="line-clamp-1">{{ data.title }}</p>
+      <p class="line-clamp-1">{{ data.title || data.original_name }}</p>
 
-      <div class="flex items-center space-x-2 text-xs">
-        <div class="flex items-center text-yellow-500">
-          <IconStar />
-          <p>{{ data.vote_average }}</p>
-        </div>
-
-        <p>{{ data.release_date }}</p>
-      </div>
+      <p class="line-clamp-1 text-xs">
+        {{ genres.join(" ● ") }}
+      </p>
     </div>
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
-import Image from "./Image.vue";
-import CircleButton from "./CircleButton.vue";
 import IconPlayFill from "~icons/ph/play-fill";
 import IconPlus from "~icons/ic/outline-plus";
 import IconKeyboardArrowDown from "~icons/ic/outline-keyboard-arrow-down";
 import IconStar from "~icons/ic/sharp-star-purple500";
 import IconThumbUp from "~icons/fluent/thumb-like-20-regular";
 import IconThumbDown from "~icons/fluent/thumb-dislike-24-regular";
+
+import { GENRES } from "../constants";
+import Image from "./Image.vue";
+import CircleButton from "./CircleButton.vue";
 
 export default {
   props: ["data"],
@@ -132,18 +129,28 @@ export default {
     };
 
     const handleClick = () => {
+      const isTVShow = !!data.first_air_date;
+
       router.push({
         path: "info",
         query: {
           id: data.id,
+          type: isTVShow ? "tv" : "movie",
           scrollTop: document.documentElement.scrollTop,
         },
       });
     };
 
+    const genres = computed(() =>
+      data.genre_ids
+        .map((id) => GENRES.find((genre) => genre.id === id))
+        .map((genre) => genre.name)
+    );
+
     return {
       isScaled,
       isModal,
+      genres,
       container,
       handleMouseEnter,
       handleMouseLeave,
