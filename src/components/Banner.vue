@@ -4,7 +4,6 @@
       :src="banner.backdrop_path"
       alt="banner"
       class="object-cover w-full h-full"
-      :size="780"
     />
 
     <div class="banner__overlay absolute inset-0 flex items-center px-12">
