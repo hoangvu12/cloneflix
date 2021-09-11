@@ -58,14 +58,11 @@
           :title="item.title"
           :items="item.results"
         />
-        <!-- <Section title="Popular on Netflix" :items="data.popular.results" />
-        <Section title="Top rated" :items="data.top_rated.results" /> -->
-        <!-- <Section title="Latest films" :items="latestList" /> -->
       </div>
     </div>
   </div>
 
-  <router-view v-slot="{ Component }">
+  <router-view :key="$route.query.id" v-slot="{ Component }">
     <transition name="fade" mode="out-in">
       <component :is="Component" />
     </transition>
@@ -73,7 +70,7 @@
 </template>
 <script>
 import { useRouter } from "vue-router";
-import { computed, onMounted, ref } from "vue";
+import { onMounted } from "vue";
 import useMovies from "../../hooks/useMovies";
 
 import IconPlayFill from "~icons/ph/play-fill";
@@ -84,7 +81,6 @@ import Image from "../../components/Image.vue";
 import VideoCarousel from "../../components/VideoCarousel.vue";
 import Button from "../../components/Button.vue";
 import Section from "./Section.vue";
-import { randomIndex } from "../../utils";
 
 export default {
   components: {
@@ -117,15 +113,11 @@ export default {
 
     router.afterEach(handleScrollPosition);
 
-    onMounted(() => {
-      handleScrollPosition(currentRoute.value);
-    });
-
     const handleMoreInfoClick = () => {
       router.push({
         path: "info",
         query: {
-          id: latest.value.id,
+          id: data.value.banner.id,
           scrollTop: document.documentElement.scrollTop,
         },
       });

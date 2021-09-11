@@ -11,7 +11,7 @@ import useFilms from "./useFilms";
 
 const useMovies = () => {
   const randomGenres = randomElement(MOVIE_GENRES, 5);
-  console.log(randomGenres);
+
   const [data, isLoading, isError] = useFilms([
     {
       name: "movie_popular",
