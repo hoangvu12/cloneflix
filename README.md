@@ -14,7 +14,7 @@ A netflix clone website built with Vue and Tailwind
 ## Technologies
 
 - [Vue](https://github.com/vuejs/vue), [Tailwind](https://github.com/tailwindlabs/tailwindcss)
-- Libraries: [Vue Query](https://github.com/tannerlinsley/react-query), [Swiper](https://github.com/nolimits4web/swiper), [Vue3 Popper](https://github.com/valgeirb/vue3-popper)
+- Libraries: [Vue Query](https://github.com/tannerlinsley/react-query), [Swiper](https://github.com/nolimits4web/swiper).
 
 ## Setup
 
