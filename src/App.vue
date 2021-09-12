@@ -23,11 +23,13 @@ export default {
 
 <template>
   <Header />
-  <router-view v-slot="{ Component }">
-    <transition name="fade" mode="out-in">
-      <component :is="Component" />
-    </transition>
-  </router-view>
+  <div class="min-h-screen">
+    <router-view v-slot="{ Component, route }">
+      <transition name="fade" mode="out-in">
+        <component class="min-h-screen" :is="Component" :key="route.path" />
+      </transition>
+    </router-view>
+  </div>
   <Footer />
 </template>
 

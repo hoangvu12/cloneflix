@@ -1,5 +1,5 @@
 <template>
-  <img v-bind="$attrs" :src="source" v-lazy="source" />
+  <img :src="source" v-lazy="source" />
 </template>
 
 <script>
@@ -14,12 +14,6 @@ export default {
       type: [Number, String],
       default: "original",
     },
-  },
-
-  data() {
-    return {
-      loaded: false,
-    };
   },
 
   setup(props) {
@@ -37,16 +31,9 @@ export default {
 </script>
 
 <style>
-.image-loader {
-  @apply relative;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-}
-
-.image-loader--text {
-  @apply absolute left-1/2 -translate-x-1/2 bottom-5 line-clamp-1 w-5/6;
-}
-
 img[lazy="loaded"] {
-  @apply animate-fadeIn;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-name: fadeIn;
 }
 </style>

@@ -6,7 +6,7 @@ export const getLatestMovies = queryPageEndpoint("/discover/movie", {
   params: {
     sort_by: "release_date.desc",
     include_adult: true,
-    "vote_count.gte": 1,
+    "vote_count.gte": 5,
   },
 });
 

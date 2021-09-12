@@ -27,33 +27,33 @@ module.exports = {
       },
       keyframes: {
         "z-hover": {
-          "0%": { zIndex: 10 },
-          "100%": { zIndex: 10 },
+          from: { zIndex: 10 },
+          to: { zIndex: 10 },
         },
 
         "z-unhover": {
-          "0%": { zIndex: 10 },
-          "100%": { zIndex: 0 },
+          from: { zIndex: 10 },
+          to: { zIndex: 0 },
         },
 
         "card-hover": {
-          "0%": { transform: "scale(1)", zIndex: 10 },
-          "100%": { transform: "scale(1.5)", zIndex: 10 },
+          from: { transform: "scale(1)", zIndex: 10 },
+          to: { transform: "scale(1.5)", zIndex: 10 },
         },
 
         "card-unhover": {
-          "0%": { transform: "scale(1.5)", zIndex: 10 },
-          "100%": { transform: "scale(1)", zIndex: 0 },
+          from: { transform: "scale(1.5)", zIndex: 10 },
+          to: { transform: "scale(1)", zIndex: 0 },
         },
 
         fadeIn: {
-          "0%": { opacity: 0 },
-          "100%": { opacity: 1 },
+          from: { opacity: 0 },
+          to: { opacity: 1 },
         },
 
         fadeOut: {
-          "0%": { opacity: 1 },
-          "100%": { opacity: 0 },
+          from: { opacity: 1 },
+          to: { opacity: 0 },
         },
       },
     },

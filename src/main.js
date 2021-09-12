@@ -7,8 +7,7 @@ import store from "./store";
 
 import "./index.css";
 
-import loadingImage from "./assets/loading.png";
-import errorImage from "./assets/error.png";
+import error from "./assets/error.png";
 
 createApp({
   provide: {
@@ -20,8 +19,7 @@ createApp({
   .use(VueLazyload, {
     observer: true,
     preLoad: 1.3,
-    loading: loadingImage,
-    error: errorImage,
+    error,
     attempt: 1,
   })
   .mount("#app");
