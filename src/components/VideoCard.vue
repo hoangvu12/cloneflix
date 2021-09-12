@@ -80,12 +80,12 @@
 
 <script>
 import { ref, computed } from "vue";
-import { useRouter } from "vue-router";
 import IconPlayFill from "~icons/ph/play-fill";
 import IconPlus from "~icons/ic/outline-plus";
 import IconKeyboardArrowDown from "~icons/ic/outline-keyboard-arrow-down";
 import IconThumbUp from "~icons/fluent/thumb-like-20-regular";
 import IconThumbDown from "~icons/fluent/thumb-dislike-24-regular";
+import { setModalActive, setModalData } from "../store";
 
 import { GENRES } from "../constants";
 import Image from "./Image.vue";
@@ -107,7 +107,6 @@ export default {
     const isModal = ref(false);
     const timeout = ref(null);
     const container = ref(null);
-    const router = useRouter();
     const isMouseEnter = ref(false);
     const mouseLeaveTimeout = ref(null);
 
@@ -141,13 +140,10 @@ export default {
     const handleClick = () => {
       const isTVShow = !!data.first_air_date;
 
-      router.push({
-        path: "info",
-        query: {
-          id: data.id,
-          type: isTVShow ? "tv" : "movie",
-          scrollTop: document.documentElement.scrollTop,
-        },
+      setModalActive(true);
+      setModalData({
+        id: data.id,
+        type: isTVShow ? "tv" : "movies",
       });
     };
 
@@ -157,10 +153,6 @@ export default {
         .map((genre) => genre.name)
     );
 
-    // const visibilityChanged = (isVis) => {
-    //   isVisible.value = isVis;
-    // };
-
     return {
       isScaled,
       isModal,
@@ -169,7 +161,6 @@ export default {
       container,
       handleMouseEnter,
       handleMouseLeave,
-      // visibilityChanged,
       handleClick,
     };
   },

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-60 group cursor-pointer" @click="handleClick">
+  <div class="w-60 group cursor-pointer">
     <div class="relative">
       <Image
         :src="data.backdrop_path"
@@ -66,16 +66,6 @@ import Image from "./Image.vue";
 export default {
   components: { Image, CircleButton, IconPlus, IconPlayFill, IconStar },
   props: ["data"],
-  methods: {
-    handleClick() {
-      const currentRoute = this.$router.currentRoute.value;
-
-      this.$router.push({
-        path: "info",
-        query: { id: this.data.id, scrollTop: currentRoute.query.scrollTop },
-      });
-    },
-  },
 };
 </script>
 

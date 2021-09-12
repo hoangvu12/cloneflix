@@ -17,7 +17,7 @@
           leave-active-class="animate__animated animate__slideInDown"
           mode="out-in"
         >
-          <div v-if="!isLoading" class="w-[40%] space-y-6">
+          <div class="w-[40%] space-y-6">
             <h1 class="text-3xl font-bold line-clamp-2">
               {{ banner.title || banner.original_name }}
             </h1>

@@ -1,11 +1,24 @@
 import { reactive, readonly } from "vue";
 
-const state = reactive({
+const initialState = reactive({
   isModalActive: false,
+  scrollTop: 0,
+  modalData: null,
 });
 
-const setModalActive = function (isActive) {
-  state.isModalActive = isActive;
+export const setModalActive = function (isActive) {
+  // Keep scrollTop
+  if (isActive) {
+    const scrollTop = document.documentElement.scrollTop;
+
+    initialState.scrollTop = scrollTop;
+  }
+
+  initialState.isModalActive = isActive;
 };
 
-export default { state: readonly(state), setModalActive };
+export const setModalData = function (data) {
+  initialState.modalData = data;
+};
+
+export const state = readonly(initialState);

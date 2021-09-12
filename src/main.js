@@ -4,7 +4,6 @@ import { ObserveVisibility } from "vue-observe-visibility";
 
 import App from "./App.vue";
 import router from "./pages";
-import store from "./store";
 
 import "./index.css";
 
@@ -12,9 +11,6 @@ import error from "./assets/error.png";
 import loading from "./assets/loading.png";
 
 createApp({
-  provide: {
-    store,
-  },
   render: () => h(App),
 })
   .directive("observe-visibility", {

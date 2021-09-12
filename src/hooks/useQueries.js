@@ -1,11 +1,7 @@
 import { ref, computed } from "vue";
 import { useQuery } from "vue-query";
 
-let cache = {};
-
-const useQueries = (queries, name = "") => {
-  if (name in cache) return [cache[name].value, false, false];
-
+const useQueries = (queries) => {
   const queryResults = ref(
     queries.reduce((prev, curr) => {
       const depend = curr.depend?.(prev);
@@ -40,8 +36,6 @@ const useQueries = (queries, name = "") => {
   let isError = computed(() =>
     queryResults.value.some((result) => result.query.isError)
   );
-
-  cache[name] = computed(() => data);
 
   return [data, isLoading, isError];
 };

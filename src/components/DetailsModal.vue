@@ -120,6 +120,7 @@
   </div>
 </template>
 
+
 <script>
 import IconPlayFill from "~icons/ph/play-fill";
 import IconPlus from "~icons/ic/outline-plus";
@@ -128,28 +129,24 @@ import IconThumbDown from "~icons/fluent/thumb-dislike-24-regular";
 import IconCross from "~icons/akar-icons/cross";
 import IconStar from "~icons/ic/sharp-star-purple500";
 
-import PosterCard from "../../components/PosterCard.vue";
-import Button from "../../components/Button.vue";
-import CircleButton from "../../components/CircleButton.vue";
-import Image from "../../components/Image.vue";
+import PosterCard from "./PosterCard.vue";
+import Button from "./Button.vue";
+import CircleButton from "./CircleButton.vue";
+import Image from "./Image.vue";
 
-import useMovieDetails from "../../hooks/useMovieDetails";
-import useTVDetails from "../../hooks/useTVDetails";
-
-import { useRoute } from "vue-router";
+import useMovieDetails from "../hooks/useMovieDetails";
+import useTVDetails from "../hooks/useTVDetails";
+import { state, setModalActive } from "../store";
 
 const useFetch = {
   tv: useTVDetails,
-  movie: useMovieDetails,
+  movies: useMovieDetails,
 };
 
 export default {
   setup() {
-    const route = useRoute();
-    const { id, type = "movie" } = route.query;
-
+    const { id, type = "movies" } = state.modalData;
     const [data, isLoading, isError] = useFetch[type](id);
-
     return {
       data,
       isLoading,
@@ -170,12 +167,7 @@ export default {
   },
   methods: {
     handleCloseClick() {
-      const currentRoute = this.$router.currentRoute;
-
-      this.$router.push({
-        path: "/",
-        query: { scrollTop: currentRoute.value.query.scrollTop },
-      });
+      setModalActive(false);
     },
   },
 };
