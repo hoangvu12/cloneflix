@@ -1,7 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
 const BrowsePage = () => import("./BrowsePage/index.vue");
-const InfoPage = () => import("./InfoPage/index.vue");
 const SearchPage = () => import("./SearchPage/index.vue");
 
 const routes = [
