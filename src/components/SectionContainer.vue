@@ -1,18 +1,5 @@
 <template>
-  <suspense v-for="(item, index) in itemsShown" :key="index">
-    <Section :title="item.title" :items="item.results" v-bind="$attrs" />
-    <template #fallback>
-      <div>LOADING...</div>
-    </template>
-  </suspense>
-
-  <Button
-    v-if="numberOfSections < items.length"
-    @click="handleLoadMoreClick"
-    class="bg-black text-white"
-  >
-    <p>Load more</p>
-  </Button>
+  <Section v-for="(item, index) in itemsShown" :key="index" v-bind="item" />
 
   <InfiniteScroll @view="handleInView" />
 </template>
@@ -23,25 +10,26 @@ import InfiniteScroll from "./InfiniteScroll.vue";
 import Section from "./Section.vue";
 import Button from "./Button.vue";
 
-const SECTIONS_PER_VIEW = 1;
+const SECTIONS_PER_VIEW = 3;
 
 export default {
   props: ["items"],
   components: { InfiniteScroll, Section, Button },
   setup({ items }) {
-    const numberOfSections = ref(0);
+    const numberOfSections = ref(2);
     const itemsShown = computed(() => items.slice(0, numberOfSections.value));
+    const isEnd = computed(() => numberOfSections < items.length);
 
     return {
       numberOfSections,
       itemsShown,
+      isEnd,
     };
   },
   methods: {
     handleInView() {
-      this.numberOfSections += SECTIONS_PER_VIEW;
-    },
-    handleLoadMoreClick() {
+      if (this.isEnd) return;
+
       this.numberOfSections += SECTIONS_PER_VIEW;
     },
   },

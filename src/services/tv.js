@@ -1,3 +1,5 @@
+import { TV_GENRES } from "../constants";
+import { randomElement } from "../utils";
 import { queryEndpoint, queryPageEndpoint } from "./helper";
 
 export const discoverTVShows = queryPageEndpoint("/discover/tv");
@@ -26,3 +28,22 @@ export const getSimilarTVShows = queryEndpoint(
 export const getGenresTVShows = queryPageEndpoint(
   ({ genreId }) => `/discover/tv?with_genres=${genreId}`
 );
+
+export const BROWSE_ITEMS = [
+  {
+    queryFn: getPopularTVShows,
+    title: "Popular on Netflix",
+  },
+  {
+    queryFn: getTopRatedTVShows,
+    title: "Top rated",
+  },
+  {
+    queryFn: getTrendingTVShows,
+    title: "Trending Now",
+  },
+  ...randomElement(TV_GENRES, 5).map((genre) => ({
+    queryFn: () => getGenresTVShows({ genreId: genre.id }),
+    title: genre.name,
+  })),
+];

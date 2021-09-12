@@ -1,3 +1,5 @@
+import { MOVIE_GENRES } from "../constants";
+import { randomElement } from "../utils";
 import { queryEndpoint, queryPageEndpoint } from "./helper";
 
 export const discoverMovies = queryPageEndpoint("/discover/movie");
@@ -30,3 +32,22 @@ export const getSimilarMovies = queryEndpoint(
 export const getGenresMovies = queryPageEndpoint(
   ({ genreId }) => `/discover/movie?with_genres=${genreId}`
 );
+
+export const BROWSE_ITEMS = [
+  {
+    queryFn: getPopularMovies,
+    title: "Popular on Netflix",
+  },
+  {
+    queryFn: getTopRatedMovies,
+    title: "Top rated",
+  },
+  {
+    queryFn: getTrendingMovies,
+    title: "Trending Now",
+  },
+  ...randomElement(MOVIE_GENRES, 5).map((genre) => ({
+    queryFn: () => getGenresMovies({ genreId: genre.id }),
+    title: genre.name,
+  })),
+];
