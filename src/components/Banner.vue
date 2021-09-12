@@ -75,7 +75,18 @@ export default {
   props: ["type"],
   setup({ type }) {
     const router = useRouter();
-    const queryFn = type === "tv" ? getLatestTVShows : getLatestMovies;
+
+    let queryFn;
+
+    if (type === "home" || type === "popular") {
+      const index = randomIndex(1);
+
+      queryFn = index ? getLatestTVShows : getLatestMovies;
+    } else if (type === "tv") {
+      queryFn = getLatestTVShows;
+    } else {
+      queryFn = getLatestMovies;
+    }
 
     const [data, isLoading, isError] = useQuery([`${type}_banner`], queryFn);
 

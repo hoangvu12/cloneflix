@@ -23,6 +23,12 @@ const routes = [
     props: { isHeader: true },
   },
   {
+    path: "/browse/popular",
+    component: BrowsePage,
+    name: "New & Popular",
+    props: { isHeader: true },
+  },
+  {
     path: "/search",
     component: SearchPage,
     name: "Search",

@@ -20,6 +20,7 @@ export const getTrendingMovies = queryPageEndpoint("/trending/movie/week", {
 
 export const getPopularMovies = queryPageEndpoint("/movie/popular");
 export const getTopRatedMovies = queryPageEndpoint("/movie/top_rated");
+export const getUpcomingMovies = queryPageEndpoint("/movie/upcoming");
 export const getMovieDetails = queryEndpoint(
   ({ movieId }) => `/movie/${movieId}`
 );
@@ -54,4 +55,31 @@ export const BROWSE_ITEMS = [
     title: genre.name,
     name: `movies_${genre.name}`,
   })),
+];
+
+export const POPULAR_BROWSE_ITEMS = [
+  {
+    queryFn: getTopRatedMovies,
+    title: "Top rated",
+    name: "movies_top_rated",
+  },
+  {
+    queryFn: () =>
+      discoverMovies({
+        options: {
+          params: {
+            sort_by: "popularity.desc",
+            include_adult: true,
+            "vote_count.gte": 5,
+          },
+        },
+      }),
+    title: "Most popular",
+    name: "movies_most_popular",
+  },
+  {
+    queryFn: getUpcomingMovies,
+    title: "Upcoming",
+    name: "movies_upcoming",
+  },
 ];

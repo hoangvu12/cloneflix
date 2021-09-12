@@ -54,6 +54,7 @@ export default {
       }
 
       debounceTimeout.value = setTimeout(() => {
+        showSearch.value = false;
         router.push({ path: "/search", query: { q: keyword } });
       }, 500);
     };
