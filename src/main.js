@@ -1,5 +1,6 @@
 import { createApp, h } from "vue";
 import VueLazyload from "@jambonn/vue-lazyload";
+import { ObserveVisibility } from "vue-observe-visibility";
 
 import App from "./App.vue";
 import router from "./pages";
@@ -16,6 +17,14 @@ createApp({
   },
   render: () => h(App),
 })
+  .directive("observe-visibility", {
+    beforeMount: (el, binding, vnode) => {
+      vnode.context = binding.instance;
+      ObserveVisibility.bind(el, binding, vnode);
+    },
+    update: ObserveVisibility.update,
+    unmounted: ObserveVisibility.unbind,
+  })
   .use(router)
   .use(VueLazyload, {
     observer: true,

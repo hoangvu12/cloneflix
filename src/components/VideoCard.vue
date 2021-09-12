@@ -18,11 +18,12 @@
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
     @click="handleClick"
+    v-observe-visibility="visibilityChanged"
   >
     <div class="w-full h-full">
       <Image
         :src="data.backdrop_path"
-        :size="300"
+        :size="185"
         class="w-full h-full object-cover rounded-md"
         :class="{ 'rounded-b-none shadow': isScaled }"
         :alt="data.title"
@@ -30,6 +31,7 @@
     </div>
 
     <div
+      v-if="isVisible"
       class="
         absolute
         top-full
@@ -107,6 +109,7 @@ export default {
     const timeout = ref(null);
     const container = ref(null);
     const router = useRouter();
+    const isVisible = ref(false);
 
     const handleMouseEnter = () => {
       if (timeout.value) {
@@ -145,13 +148,19 @@ export default {
         .map((genre) => genre.name)
     );
 
+    const visibilityChanged = (isVis) => {
+      isVisible.value = isVis;
+    };
+
     return {
       isScaled,
       isModal,
+      isVisible,
       genres,
       container,
       handleMouseEnter,
       handleMouseLeave,
+      visibilityChanged,
       handleClick,
     };
   },
