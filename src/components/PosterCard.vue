@@ -3,7 +3,7 @@
     <div class="relative">
       <Image
         :src="data.backdrop_path"
-        :alt="data.title || data.original_name"
+        :alt="data.title || data.name"
         :size="300"
         class="w-full h-32 object-cover rounded-t-md"
       />
@@ -33,7 +33,7 @@
       <div class="flex items-center justify-between">
         <div>
           <p class="text-lg font-netflix_medium line-clamp-1">
-            {{ data.title || data.original_name }}
+            {{ data.title || data.name }}
           </p>
 
           <div class="flex space-x-2">

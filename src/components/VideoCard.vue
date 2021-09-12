@@ -69,7 +69,7 @@
         </circle-button>
       </div>
 
-      <p class="line-clamp-1">{{ data.title || data.original_name }}</p>
+      <p class="line-clamp-1">{{ data.title || data.name }}</p>
 
       <p class="line-clamp-1 text-xs">
         {{ genres.join(" ● ") }}

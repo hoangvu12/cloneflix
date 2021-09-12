@@ -46,12 +46,13 @@
       <div
         class="cursor-pointer px-2 py-1 flex"
         :class="[showSearch && 'space-x-2 bg-black border border-gray-300']"
-        @click.stop="showSearch = true"
+        @click.stop="handleSearchClick"
       >
         <icon-round-search class="w-6 h-6" />
 
         <input
-          placeholder="Keyword"
+          placeholder="Movies, TV shows"
+          ref="searchInput"
           class="
             bg-transparent
             focus:border-none
@@ -78,6 +79,7 @@ export default {
   setup() {
     const { currentRoute, getRoutes } = useRouter();
     const routes = getRoutes();
+    const searchInput = ref(null);
 
     // Somehow the home route placed behind dynamic routes
     // So I have to sort it back
@@ -88,11 +90,19 @@ export default {
     const isTop = ref(true);
     const showSearch = ref(false);
 
+    const handleSearchClick = () => {
+      showSearch.value = true;
+
+      searchInput.value.focus();
+    };
+
     return {
       currentRoute,
       routes: headerRoutes,
       isTop,
       showSearch,
+      searchInput,
+      handleSearchClick,
     };
   },
 

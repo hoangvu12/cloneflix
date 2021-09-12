@@ -31,7 +31,7 @@
 
           <div class="info__overlay">
             <h1 class="text-2xl font-netflix_medium mb-6">
-              {{ data.details.title || data.details.original_name }}
+              {{ data.details.title || data.details.name }}
             </h1>
 
             <div class="flex items-center space-x-2">

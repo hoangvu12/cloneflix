@@ -19,7 +19,7 @@
         >
           <div class="w-[40%] space-y-6">
             <h1 class="text-3xl font-bold line-clamp-2">
-              {{ banner.title || banner.original_name }}
+              {{ banner.title || banner.name }}
             </h1>
 
             <p class="text-lg line-clamp-4 font-medium">
