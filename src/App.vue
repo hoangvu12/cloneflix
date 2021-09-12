@@ -56,7 +56,7 @@ export default {
         <component
           :is="Component"
           :class="[isModalActive && 'fixed']"
-          :key="route.path"
+          :key="route.fullPath"
         />
       </transition>
     </router-view>

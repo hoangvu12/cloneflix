@@ -5,7 +5,7 @@
     @click.self="showSearch = false"
   ></div>
   <div
-    class="cursor-pointer px-2 py-1 flex"
+    class="relative z-10 cursor-pointer px-2 py-1 flex"
     :class="[showSearch && 'space-x-2 bg-black border border-gray-300']"
     @click.stop="handleSearchClick"
   >
@@ -22,6 +22,7 @@
         transition-all
         duration-300
       "
+      @input="handleSearchChange"
       :class="showSearch ? 'w-[14rem]' : 'w-0'"
     />
   </div>
@@ -30,11 +31,14 @@
 <script>
 import { ref } from "vue";
 import IconRoundSearch from "~icons/ic/round-search";
+import { useRouter } from "vue-router";
 
 export default {
   setup() {
     const searchInput = ref(null);
     const showSearch = ref(false);
+    const debounceTimeout = ref(null);
+    const router = useRouter();
 
     const handleSearchClick = () => {
       showSearch.value = true;
@@ -42,8 +46,21 @@ export default {
       searchInput.value.focus();
     };
 
+    const handleSearchChange = (e) => {
+      const keyword = e.target.value;
+
+      if (debounceTimeout.value) {
+        clearTimeout(debounceTimeout.value);
+      }
+
+      debounceTimeout.value = setTimeout(() => {
+        router.push({ path: "/search", query: { q: keyword } });
+      }, 500);
+    };
+
     return {
       handleSearchClick,
+      handleSearchChange,
       searchInput,
       showSearch,
     };
