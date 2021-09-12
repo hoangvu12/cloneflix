@@ -2,7 +2,6 @@
   <div
     class="header top-0 fixed z-50 w-screen h-16 transition duration-700"
     :class="[!isTop && 'bg-background']"
-    @click="showSearch = false"
   >
     <div class="header__overlay absolute inset-0 w-full h-full"></div>
     <div
@@ -43,43 +42,21 @@
           </router-link>
         </div>
       </div>
-      <div
-        class="cursor-pointer px-2 py-1 flex"
-        :class="[showSearch && 'space-x-2 bg-black border border-gray-300']"
-        @click.stop="handleSearchClick"
-      >
-        <icon-round-search class="w-6 h-6" />
 
-        <input
-          placeholder="Movies, TV shows"
-          ref="searchInput"
-          class="
-            bg-transparent
-            focus:border-none
-            focus:outline-none
-            text-white
-            placeholder-text-400
-            transition-all
-            duration-300
-          "
-          :class="showSearch ? 'w-[14rem]' : 'w-0'"
-        />
-      </div>
+      <search />
     </div>
   </div>
 </template>
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import IconRoundSearch from "~icons/ic/round-search";
-
+import Search from "./Search.vue";
 import logo from "../assets/logo.png";
 
 export default {
   setup() {
     const { currentRoute, getRoutes } = useRouter();
     const routes = getRoutes();
-    const searchInput = ref(null);
 
     // Somehow the home route placed behind dynamic routes
     // So I have to sort it back
@@ -88,26 +65,16 @@ export default {
       .filter((route) => route.props?.default?.isHeader);
 
     const isTop = ref(true);
-    const showSearch = ref(false);
-
-    const handleSearchClick = () => {
-      showSearch.value = true;
-
-      searchInput.value.focus();
-    };
 
     return {
       currentRoute,
       routes: headerRoutes,
       isTop,
-      showSearch,
-      searchInput,
-      handleSearchClick,
     };
   },
 
   components: {
-    IconRoundSearch,
+    Search,
   },
 
   data() {
