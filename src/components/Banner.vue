@@ -1,27 +1,30 @@
 <template>
   <div class="w-[100vw] h-[120vh]">
     <banner-skeleton v-if="isLoading" />
-    <transition name="fade">
-      <div v-if="!isLoading" class="banner-container relative w-full h-full">
-        <div class="min-w-full min-h-full">
-          <Image
-            :src="banner.backdrop_path"
-            alt="banner"
-            class="object-cover w-full h-full"
-          />
-        </div>
+    <div v-if="!isLoading" class="banner-container relative w-full h-full">
+      <div class="min-w-full min-h-full">
+        <Image
+          :src="banner.backdrop_path"
+          alt="banner"
+          class="object-cover w-full h-full"
+        />
+      </div>
 
-        <div class="banner__overlay absolute inset-0 flex items-center px-12">
-          <div class="w-[40%] space-y-6">
+      <div class="banner__overlay absolute inset-0 flex items-center px-12">
+        <transition
+          appear
+          enter-active-class="animate__animated animate__slideInUp"
+          leave-active-class="animate__animated animate__slideInDown"
+          mode="out-in"
+        >
+          <div v-if="!isLoading" class="w-[40%] space-y-6">
             <h1 class="text-3xl font-bold line-clamp-2">
               {{ banner.title || banner.original_name }}
             </h1>
 
-            <div class="space-y-2">
-              <p class="text-lg line-clamp-4 font-medium">
-                {{ banner.overview }}
-              </p>
-            </div>
+            <p class="text-lg line-clamp-4 font-medium">
+              {{ banner.overview }}
+            </p>
 
             <div class="flex items-center space-x-2">
               <Button class="text-black bg-white">
@@ -42,11 +45,11 @@
               </Button>
             </div>
           </div>
-        </div>
-
-        <div class="banner__overlay--down absolute bottom-0 h-32 w-full"></div>
+        </transition>
       </div>
-    </transition>
+
+      <div class="banner__overlay--down absolute bottom-0 h-32 w-full"></div>
+    </div>
   </div>
 </template>
 

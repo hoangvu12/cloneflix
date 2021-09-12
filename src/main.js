@@ -30,7 +30,7 @@ createApp({
     observer: true,
     preLoad: 1.3,
     error,
-    loading,
+    // loading,
     attempt: 1,
   })
   .mount("#app");

@@ -9,6 +9,7 @@
   "dependencies": {
     "@jambonn/vue-lazyload": "^1.0.8",
     "@tailwindcss/line-clamp": "^0.2.1",
+    "animate.css": "^4.1.1",
     "axios": "^0.21.1",
     "swiper": "^7.0.3",
     "vue": "^3.2.6",

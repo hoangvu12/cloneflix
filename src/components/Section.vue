@@ -16,16 +16,13 @@ import VideoCarouselSkeleton from "../skeletons/VideoCarouselSkeleton.vue";
 import VideoCarousel from "./VideoCarousel.vue";
 
 export default {
-  props: ["queryFn", "title"],
+  props: ["queryFn", "title", "name"],
   components: {
     VideoCarousel,
     VideoCarouselSkeleton,
   },
   setup(props) {
-    const [data, isLoading, isError] = useQuery(
-      `section-${props.title}`,
-      props.queryFn
-    );
+    const [data, isLoading, isError] = useQuery(props.name, props.queryFn);
 
     return { data, isLoading, isError };
   },

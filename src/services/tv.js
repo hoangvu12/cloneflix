@@ -33,17 +33,21 @@ export const BROWSE_ITEMS = [
   {
     queryFn: getPopularTVShows,
     title: "Popular on Netflix",
+    name: "tv_popular",
   },
   {
     queryFn: getTopRatedTVShows,
     title: "Top rated",
+    name: "tv_top_rated",
   },
   {
     queryFn: getTrendingTVShows,
     title: "Trending Now",
+    name: "tv_trending",
   },
   ...randomElement(TV_GENRES, 5).map((genre) => ({
     queryFn: () => getGenresTVShows({ genreId: genre.id }),
     title: genre.name,
+    name: `tv_${genre.name}`,
   })),
 ];

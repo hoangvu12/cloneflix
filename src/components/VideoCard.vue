@@ -18,7 +18,6 @@
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
     @click="handleClick"
-    v-observe-visibility="visibilityChanged"
   >
     <div class="w-full h-full">
       <Image
@@ -31,7 +30,7 @@
     </div>
 
     <div
-      v-if="isVisible"
+      v-if="isMouseEnter"
       class="
         absolute
         top-full
@@ -109,12 +108,18 @@ export default {
     const timeout = ref(null);
     const container = ref(null);
     const router = useRouter();
-    const isVisible = ref(false);
+    const isMouseEnter = ref(false);
+    const mouseLeaveTimeout = ref(null);
 
     const handleMouseEnter = () => {
       if (timeout.value) {
         clearTimeout(timeout.value);
       }
+      if (mouseLeaveTimeout.value) {
+        clearTimeout(mouseLeaveTimeout.value);
+      }
+
+      isMouseEnter.value = true;
 
       timeout.value = setTimeout(() => {
         isScaled.value = true;
@@ -127,6 +132,10 @@ export default {
       }
 
       isScaled.value = false;
+
+      mouseLeaveTimeout.value = setTimeout(() => {
+        isMouseEnter.value = false;
+      }, 500);
     };
 
     const handleClick = () => {
@@ -148,19 +157,19 @@ export default {
         .map((genre) => genre.name)
     );
 
-    const visibilityChanged = (isVis) => {
-      isVisible.value = isVis;
-    };
+    // const visibilityChanged = (isVis) => {
+    //   isVisible.value = isVis;
+    // };
 
     return {
       isScaled,
       isModal,
-      isVisible,
+      isMouseEnter,
       genres,
       container,
       handleMouseEnter,
       handleMouseLeave,
-      visibilityChanged,
+      // visibilityChanged,
       handleClick,
     };
   },
