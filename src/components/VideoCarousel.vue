@@ -66,15 +66,36 @@ export default {
     const container = ref(null);
     const childHovering = ref(false);
     const options = {
-      slidesPerView: 5,
+      slidesPerView: 2,
+      slidesPerGroup: 2,
       spaceBetween: 5,
       modules: [Pagination],
       pagination: {
         type: "bullets",
       },
-      slidesPerGroup: 5,
       speed: 800,
       watchSlidesProgress: true,
+      breakpoints: {
+        1400: {
+          slidesPerView: 6,
+          slidesPerGroup: 6,
+        },
+
+        1100: {
+          slidesPerView: 5,
+          slidesPerGroup: 5,
+        },
+
+        800: {
+          slidesPerView: 4,
+          slidesPerGroup: 4,
+        },
+
+        500: {
+          slidesPerView: 3,
+          slidesPerGroup: 3,
+        },
+      },
     };
 
     const handleToggleButton = (swiper) => {
@@ -209,7 +230,7 @@ export default {
 }
 
 .swiper-pagination-bullet {
-  @apply h-full bg-secondary;
+  @apply h-full bg-secondary hidden md:block;
   flex: 1 1 0%;
 }
 

@@ -6,7 +6,6 @@
       video-card
       relative
       w-full
-      h-32
       transition-all
       duration-300
     "
@@ -171,5 +170,9 @@ export default {
 .shadow {
   -webkit-box-shadow: 0px 0px 12px 0px #000000;
   box-shadow: 0px 0px 12px 0px #000000;
+}
+
+.video-card {
+  aspect-ratio: 16 / 9;
 }
 </style>
