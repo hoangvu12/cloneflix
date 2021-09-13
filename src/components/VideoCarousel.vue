@@ -11,6 +11,7 @@
       :pagination="{ type: 'bullets' }"
       :slides-per-group="5"
       :speed="800"
+      :watchSlidesProgress="true"
       @swiper="onReady"
       @slideChange="handleToggleButton"
     >
@@ -54,12 +55,11 @@
 import IconArrowRight from "~icons/ic/outline-arrow-forward-ios";
 import IconArrowLeft from "~icons/ic/outline-arrow-back-ios";
 
-import { onMounted, ref } from "vue";
+import { ref, onMounted } from "vue";
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
 
-import { chunk } from "../utils";
 import VideoCard from "./VideoCard.vue";
 
 export default {
@@ -73,7 +73,6 @@ export default {
     },
   },
   setup(props) {
-    const { slidesPerView } = props;
     const container = ref(null);
     const childHovering = ref(false);
 
@@ -92,6 +91,8 @@ export default {
       } else {
         nextButton.classList.remove("swiper-button-disabled");
       }
+
+      handleSlideHover();
     };
 
     const listenCardHovering = () => {
@@ -117,6 +118,20 @@ export default {
       observer.observe(container.value, config);
     };
 
+    const handleSlideHover = () => {
+      const slides = [
+        ...container.value.querySelectorAll(
+          ".swiper-slide.swiper-slide-visible .video-card"
+        ),
+      ];
+
+      const firstElement = slides[0];
+      const lastElement = slides[slides.length - 1];
+
+      firstElement.style.transformOrigin = "left center";
+      lastElement.style.transformOrigin = "right center";
+    };
+
     const onReady = (swiper) => {
       const prevButton = container.value.querySelector(".swiper-button-prev");
       const nextButton = container.value.querySelector(".swiper-button-next");
@@ -135,23 +150,8 @@ export default {
 
       handleToggleButton(swiper);
       listenCardHovering();
+      handleSlideHover();
     };
-
-    onMounted(() => {
-      const slides = [
-        ...container.value.querySelectorAll(".swiper-slide .video-card"),
-      ];
-
-      const chunkedSlides = chunk(slides, slidesPerView);
-
-      chunkedSlides.forEach((chunk) => {
-        const firstElement = chunk[0];
-        const lastElement = chunk[chunk.length - 1];
-
-        firstElement.style.transformOrigin = "left center";
-        lastElement.style.transformOrigin = "right center";
-      });
-    });
 
     return {
       modules: [Pagination],
