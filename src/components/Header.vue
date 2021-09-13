@@ -14,13 +14,16 @@
         w-full
         h-full
         p-5
-        px-12
+        px-4
+        md:px-12
       "
     >
-      <div class="flex items-center space-x-12">
-        <img :src="logo" alt="logo" class="h-full w-24 object-cover" />
+      <div class="flex items-center md:space-x-12">
+        <mobile-nav class="md:hidden" />
 
-        <div class="flex items-center space-x-5">
+        <img :src="logo" alt="logo" class="h-full w-24 object-cover ml-4" />
+
+        <div class="items-center space-x-5 hidden md:flex">
           <router-link
             v-for="route in routes"
             :to="route.path"
@@ -30,7 +33,7 @@
               text-sm
               font-netflix_medium
               transition
-              300ms
+              duration-300
             "
             :class="[
               currentRoute.name === route.name
@@ -49,32 +52,27 @@
 </template>
 <script>
 import { ref } from "vue";
-import { useRouter } from "vue-router";
+import useHeaderRoute from "../hooks/useHeaderRoute";
 import Search from "./Search.vue";
 import logo from "../assets/logo.png";
+import MobileNav from "./MobileNav.vue";
 
 export default {
   setup() {
-    const { currentRoute, getRoutes } = useRouter();
-    const routes = getRoutes();
-
-    // Somehow the home route placed behind dynamic routes
-    // So I have to sort it back
-    const headerRoutes = routes
-      .sort((a, b) => a.path.length - b.path.length)
-      .filter((route) => route.props?.default?.isHeader);
+    const { currentRoute, routes } = useHeaderRoute();
 
     const isTop = ref(true);
 
     return {
       currentRoute,
-      routes: headerRoutes,
+      routes,
       isTop,
     };
   },
 
   components: {
     Search,
+    MobileNav,
   },
 
   data() {

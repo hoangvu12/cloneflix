@@ -1,7 +1,7 @@
 <template>
   <div
     class="fixed inset-0 opacity-0"
-    :class="[showSearch ? 'visible' : 'invisible']"
+    :class="[showSearch && !isMobile ? 'visible' : 'invisible']"
     @click.self="showSearch = false"
   ></div>
   <div
@@ -9,9 +9,9 @@
     :class="[showSearch && 'space-x-2 bg-black border border-gray-300']"
     @click.stop="handleSearchClick"
   >
-    <icon-round-search class="w-6 h-6" />
+    <icon-round-search class="w-6 h-6 hidden md:block" />
     <input
-      placeholder="Movies, TV shows"
+      :placeholder="[!isMobile ? 'Movies, TV shows' : 'Search']"
       ref="searchInput"
       class="
         bg-transparent
@@ -23,7 +23,7 @@
         duration-300
       "
       @input="handleSearchChange"
-      :class="showSearch ? 'w-[14rem]' : 'w-0'"
+      :class="showSearch ? 'w-[6rem] md:w-[14rem]' : 'w-0'"
     />
   </div>
 </template>
@@ -32,11 +32,14 @@
 import { ref } from "vue";
 import IconRoundSearch from "~icons/ic/round-search";
 import { useRouter } from "vue-router";
+import useDevice from "../hooks/useDevice";
 
 export default {
   setup() {
+    const { isMobile } = useDevice();
+
     const searchInput = ref(null);
-    const showSearch = ref(false);
+    const showSearch = ref(isMobile);
     const debounceTimeout = ref(null);
     const router = useRouter();
 
@@ -64,6 +67,7 @@ export default {
       handleSearchChange,
       searchInput,
       showSearch,
+      isMobile,
     };
   },
   components: {

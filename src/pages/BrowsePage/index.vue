@@ -3,7 +3,7 @@
     <Banner :type="type" v-if="isDesktop" />
 
     <div
-      class="px-12 relative z-10 space-y-12"
+      class="px-4 md:px-12 relative z-10 space-y-12"
       :class="[isDesktop ? '-mt-28' : 'mt-20']"
     >
       <SectionContainer :items="items" />

@@ -24,6 +24,9 @@ module.exports = {
         "z-hover": "z-hover 300ms forwards",
         "z-unhover": "z-unhover 300ms forwards",
         fadeIn: "fadeIn 300ms forwards",
+        fadeOut: "fadeOut 300ms forwards",
+        slideInLeft: "slideInLeft 300ms forwards",
+        slideInRight: "slideInRight 300ms forwards",
       },
       keyframes: {
         "z-hover": {
@@ -54,6 +57,26 @@ module.exports = {
         fadeOut: {
           from: { opacity: 1 },
           to: { opacity: 0 },
+        },
+
+        slideInRight: {
+          from: {
+            transform: "translateX(0px)",
+          },
+
+          to: {
+            transform: "translateX(-100%)",
+          },
+        },
+
+        slideInLeft: {
+          from: {
+            transform: "translateX(-100%)",
+          },
+
+          to: {
+            transform: "translateX(0px)",
+          },
         },
       },
     },
