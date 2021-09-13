@@ -213,16 +213,16 @@ export default {
 
 .swiper-button-next,
 .swiper-button-prev {
-  @apply absolute h-full w-12 mt-0 top-0 bg-black bg-opacity-50;
+  @apply absolute h-full w-6 md:w-12 mt-0 top-0 bg-black bg-opacity-50;
   z-index: 2;
 }
 
 .swiper-button-prev {
-  @apply -left-12;
+  @apply -left-6 md:-left-12;
 }
 
 .swiper-button-next {
-  @apply -right-12;
+  @apply -right-6 md:-right-12;
 }
 
 .swiper-pagination {
