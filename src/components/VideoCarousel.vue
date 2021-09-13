@@ -5,13 +5,7 @@
     :class="[childHovering ? 'animate-z-hover' : 'animate-z-unhover']"
   >
     <Swiper
-      :slides-per-view="5"
-      :space-between="5"
-      :modules="modules"
-      :pagination="{ type: 'bullets' }"
-      :slides-per-group="5"
-      :speed="800"
-      :watchSlidesProgress="true"
+      v-bind="options"
       @swiper="onReady"
       @slideChange="handleToggleButton"
     >
@@ -55,7 +49,7 @@
 import IconArrowRight from "~icons/ic/outline-arrow-forward-ios";
 import IconArrowLeft from "~icons/ic/outline-arrow-back-ios";
 
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
@@ -64,17 +58,24 @@ import VideoCard from "./VideoCard.vue";
 
 export default {
   props: {
-    slidesPerView: {
-      default: 5,
-      type: Number,
-    },
     items: {
       type: Array,
     },
   },
-  setup(props) {
+  setup() {
     const container = ref(null);
     const childHovering = ref(false);
+    const options = {
+      slidesPerView: 5,
+      spaceBetween: 5,
+      modules: [Pagination],
+      pagination: {
+        type: "bullets",
+      },
+      slidesPerGroup: 5,
+      speed: 800,
+      watchSlidesProgress: true,
+    };
 
     const handleToggleButton = (swiper) => {
       const prevButton = container.value.querySelector(".swiper-button-prev");
@@ -154,7 +155,7 @@ export default {
     };
 
     return {
-      modules: [Pagination],
+      options,
       container,
       onReady,
       handleToggleButton,
