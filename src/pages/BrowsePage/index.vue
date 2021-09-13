@@ -1,8 +1,11 @@
 <template>
   <div class="w-full h-full pb-44">
-    <Banner :type="type" />
+    <Banner :type="type" v-if="isDesktop" />
 
-    <div class="-mt-28 px-12 relative z-10 space-y-12">
+    <div
+      class="px-12 relative z-10 space-y-12"
+      :class="[isDesktop ? '-mt-28' : 'mt-20']"
+    >
       <SectionContainer :items="items" />
     </div>
   </div>
@@ -10,6 +13,7 @@
 <script>
 import SectionContainer from "../../components/SectionContainer.vue";
 import Banner from "../../components/Banner.vue";
+import useDevice from "../../hooks/useDevice";
 import {
   BROWSE_ITEMS as MOVIES_BROWSE_ITEMS,
   POPULAR_BROWSE_ITEMS,
@@ -27,6 +31,11 @@ export default {
   components: {
     SectionContainer,
     Banner,
+  },
+  setup() {
+    const { isDesktop } = useDevice();
+
+    return { isDesktop };
   },
   computed: {
     type() {
