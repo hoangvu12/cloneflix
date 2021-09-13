@@ -29,7 +29,7 @@
     </div>
 
     <div
-      v-if="isMouseEnter"
+      v-if="isMouseEnter && isDesktop"
       class="
         absolute
         top-full
@@ -86,6 +86,8 @@ import IconThumbUp from "~icons/fluent/thumb-like-20-regular";
 import IconThumbDown from "~icons/fluent/thumb-dislike-24-regular";
 import { setModalActive, setModalData } from "../store";
 
+import useDevice from "../hooks/useDevice";
+
 import { GENRES } from "../constants";
 import Image from "./Image.vue";
 import CircleButton from "./CircleButton.vue";
@@ -108,6 +110,7 @@ export default {
     const container = ref(null);
     const isMouseEnter = ref(false);
     const mouseLeaveTimeout = ref(null);
+    const { isDesktop } = useDevice();
 
     const handleMouseEnter = () => {
       if (timeout.value) {
@@ -153,6 +156,7 @@ export default {
     );
 
     return {
+      isDesktop,
       isScaled,
       isModal,
       isMouseEnter,

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full pb-44">
+  <div class="w-full h-full md:pb-44">
     <Banner :type="type" v-if="isDesktop" />
 
     <div

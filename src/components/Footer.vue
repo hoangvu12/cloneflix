@@ -1,5 +1,7 @@
 <template>
-  <div class="flex justify-between items-center w-screen py-2 px-8">
+  <div
+    class="mt-16 md:mt-0 flex justify-between items-center w-screen py-2 px-8"
+  >
     <div class="flex items-center space-x-1">
       <span>Made with</span>
       <span class="text-red-500">
