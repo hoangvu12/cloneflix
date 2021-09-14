@@ -2,7 +2,7 @@ import { ref, computed } from "vue";
 import { BREAKPOINTS } from "../constants";
 
 const useBreakpoint = () => {
-  const screenWidth = ref(window.screen.width);
+  const screenWidth = ref(window.innerWidth);
 
   return computed(() => {
     const breakpoint = Object.keys(BREAKPOINTS)
