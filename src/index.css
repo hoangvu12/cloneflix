@@ -32,8 +32,4 @@ body {
   overflow-x: hidden;
 }
 
-.aspect-16-9 {
-  aspect-ratio: 16/9;
-}
-
 @tailwind utilities;

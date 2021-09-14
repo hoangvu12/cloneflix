@@ -1,12 +1,14 @@
 <template>
   <div class="w-full group cursor-pointer">
     <div class="relative">
-      <Image
-        :src="data.backdrop_path"
-        :alt="data.title || data.name"
-        :size="300"
-        class="poster-card w-full object-cover rounded-t-md"
-      />
+      <div class="relative pt-[56.25%]">
+        <Image
+          :src="data.backdrop_path"
+          :alt="data.title || data.name"
+          :size="300"
+          class="poster-card w-full h-full absolute left-0 top-0 rounded-md"
+        />
+      </div>
 
       <div
         class="
@@ -68,9 +70,3 @@ export default {
   props: ["data"],
 };
 </script>
-
-<style scoped>
-.poster-card {
-  aspect-ratio: 16 / 9;
-}
-</style>

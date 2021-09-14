@@ -1,6 +1,8 @@
 <template>
   <Skeleton>
-    <div class="w-full aspect-16-9 rounded-md"></div>
+    <div class="relative pt-[56.25%]">
+      <div class="w-full h-full absolute left-0 top-0 rounded-md"></div>
+    </div>
   </Skeleton>
 </template>
 
