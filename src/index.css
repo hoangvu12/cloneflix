@@ -25,10 +25,11 @@
 
 body {
   @apply text-typography font-netflix;
-  max-width: 100vw;
-  min-height: 100vh;
   background-color: var(--background-color);
-  overflow-x: hidden;
+}
+
+.aspect-16-9 {
+  aspect-ratio: 16/9;
 }
 
 @tailwind utilities;
