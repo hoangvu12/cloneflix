@@ -70,17 +70,23 @@
 
       <p class="line-clamp-1">{{ data.title || data.name }}</p>
 
-      <p class="line-clamp-1 text-xs">
-        {{ genres.join(" ● ") }}
-      </p>
+      <div class="flex items-center space-x-2 text-xs">
+        <div class="flex items-center text-yellow-500">
+          <IconStar />
+          <p>{{ data.vote_average }}</p>
+        </div>
+
+        <p>{{ data.release_date || data.first_air_date }}</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import IconPlayFill from "~icons/ph/play-fill";
 import IconPlus from "~icons/ic/outline-plus";
+import IconStar from "~icons/ic/sharp-star-purple500";
 import IconKeyboardArrowDown from "~icons/ic/outline-keyboard-arrow-down";
 import IconThumbUp from "~icons/fluent/thumb-like-20-regular";
 import IconThumbDown from "~icons/fluent/thumb-dislike-24-regular";
@@ -88,7 +94,6 @@ import { setModalActive, setModalData } from "../store";
 
 import useDevice from "../hooks/useDevice";
 
-import { GENRES } from "../constants";
 import Image from "./Image.vue";
 import CircleButton from "./CircleButton.vue";
 
@@ -102,6 +107,7 @@ export default {
     CircleButton,
     IconKeyboardArrowDown,
     IconPlus,
+    IconStar,
   },
   setup({ data }) {
     const isScaled = ref(false);
@@ -149,18 +155,11 @@ export default {
       });
     };
 
-    const genres = computed(() =>
-      data.genre_ids
-        .map((id) => GENRES.find((genre) => genre.id === id))
-        .map((genre) => genre.name)
-    );
-
     return {
       isDesktop,
       isScaled,
       isModal,
       isMouseEnter,
-      genres,
       container,
       handleMouseEnter,
       handleMouseLeave,
