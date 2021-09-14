@@ -18,12 +18,12 @@
         md:px-12
       "
     >
-      <div class="flex items-center md:space-x-12">
+      <div class="flex items-center">
         <mobile-nav class="md:hidden" />
 
         <img :src="logo" alt="logo" class="h-full w-24 object-cover ml-4" />
 
-        <div class="items-center space-x-5 hidden md:flex">
+        <div class="items-center space-x-5 hidden md:flex md:ml-12">
           <router-link
             v-for="route in routes"
             :to="route.path"
