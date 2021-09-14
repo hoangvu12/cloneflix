@@ -1,6 +1,16 @@
 <template>
   <div
-    class="mt-16 md:mt-0 flex justify-between items-center w-screen py-2 px-8"
+    class="
+      mt-16
+      md:mt-0
+      flex
+      justify-center
+      sm:justify-between
+      items-center
+      w-screen
+      py-2
+      px-8
+    "
   >
     <div class="flex items-center space-x-1">
       <span>Made with</span>
@@ -11,7 +21,7 @@
     </div>
 
     <a :href="GITHUB_URL" target="_blank">
-      <div class="flex items-center space-x-1">
+      <div class="hidden sm:flex items-center space-x-1">
         <span>
           <IconGithub />
         </span>
