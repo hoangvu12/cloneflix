@@ -76,23 +76,23 @@ export default {
       speed: 800,
       watchSlidesProgress: true,
       breakpoints: {
-        1400: {
+        1280: {
           slidesPerView: 6,
           slidesPerGroup: 6,
         },
 
-        1100: {
+        1024: {
           slidesPerView: 5,
           slidesPerGroup: 5,
         },
 
-        800: {
+        768: {
           slidesPerView: 4,
           slidesPerGroup: 4,
           spaceBetween: 3,
         },
 
-        500: {
+        640: {
           slidesPerView: 3,
           slidesPerGroup: 3,
           spaceBetween: 2,
