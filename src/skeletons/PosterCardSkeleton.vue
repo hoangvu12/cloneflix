@@ -1,6 +1,7 @@
 <template>
   <skeleton>
     <div class="w-full aspect-16-9"></div>
+    <div class="w-full h-60"></div>
   </skeleton>
 </template>
 

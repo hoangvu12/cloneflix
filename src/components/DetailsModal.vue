@@ -155,11 +155,11 @@ const useFetch = {
 export default {
   setup() {
     const { id, type = "movies" } = state.modalData;
-    const [data, isLoading, isError] = useFetch[type](id);
+    // const [data, isLoading, isError] = useFetch[type](id);
     return {
-      data,
-      isLoading,
-      isError,
+      // data,
+      isLoading: true,
+      // isError,
     };
   },
   components: {
