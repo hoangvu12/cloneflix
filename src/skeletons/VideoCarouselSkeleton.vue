@@ -25,45 +25,18 @@
 </template>
 
 <script>
+import useBreakpoint from "../hooks/useBreakpoint";
 import Skeleton from "../components/Skeleton/index.vue";
 import VideoCardSkeleton from "./VideoCardSkeleton.vue";
 
-const breakpoints = {
-  1280: {
-    items: 6,
-  },
-
-  1024: {
-    items: 5,
-  },
-
-  768: {
-    items: 4,
-  },
-
-  640: {
-    items: 3,
-  },
-
-  0: {
-    items: 2,
-  },
-};
-
 export default {
   components: { Skeleton, VideoCardSkeleton },
-  computed: {
-    items() {
-      const screenWidth = window.screen.width;
+  setup() {
+    const breakpoint = useBreakpoint();
 
-      const breakpoint = Object.keys(breakpoints)
-        .sort((a, b) => b - a)
-        .find((breakpoint) => screenWidth >= breakpoint);
-
-      const { items } = breakpoints[breakpoint];
-
-      return items;
-    },
+    return {
+      items: breakpoint.value.items,
+    };
   },
 };
 </script>
