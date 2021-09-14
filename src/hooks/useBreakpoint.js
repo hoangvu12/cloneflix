@@ -7,7 +7,7 @@ const useBreakpoint = () => {
   return computed(() => {
     const breakpoint = Object.keys(BREAKPOINTS)
       .sort((a, b) => b - a)
-      .find((breakpoint) => screenWidth >= breakpoint);
+      .find((breakpoint) => screenWidth.value >= breakpoint);
 
     return BREAKPOINTS[breakpoint];
   });
