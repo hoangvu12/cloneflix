@@ -1,11 +1,11 @@
 <template>
-  <div class="w-60 group cursor-pointer">
+  <div class="w-full group cursor-pointer">
     <div class="relative">
       <Image
         :src="data.backdrop_path"
         :alt="data.title || data.name"
         :size="300"
-        class="w-full h-32 object-cover rounded-t-md"
+        class="poster-card w-full object-cover rounded-t-md"
       />
 
       <div
@@ -69,5 +69,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.poster-card {
+  aspect-ratio: 16 / 9;
+}
 </style>

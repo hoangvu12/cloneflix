@@ -60,7 +60,7 @@ export default {
   setup() {
     const { currentRoute, routes } = useHeaderRoute();
 
-    const showMenu = ref(true);
+    const showMenu = ref(false);
 
     return {
       showMenu,

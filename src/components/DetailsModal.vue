@@ -52,8 +52,8 @@
           </div>
         </div>
 
-        <div class="space-y-8 px-12 my-3">
-          <div class="space-x-8 flex space-y-2">
+        <div class="space-y-8 px-4 md:px-12 my-3">
+          <div class="md:space-x-8 flex flex-col md:flex-row space-y-4">
             <div class="flex-1 flex-grow-[2] space-y-4">
               <p class="text-base text-gray-300">{{ data.details.tagline }}</p>
 
@@ -80,16 +80,16 @@
               </p>
             </div>
 
-            <div class="flex-1 space-y-2 text-sm">
+            <div class="mt-4 md:mt-0 flex-1 space-y-2 text-sm">
               <div class="space-x-2">
-                <span class="text-secondary">Genres:</span>
+                <span class="text-gray-400">Genres:</span>
                 <span class="text-white">
                   {{ data.details.genres.map(({ name }) => name).join(", ") }}
                 </span>
               </div>
 
               <div class="space-x-2">
-                <span class="text-secondary">Companies:</span>
+                <span class="text-gray-400">Companies:</span>
                 <span class="text-white">
                   {{
                     data.details.production_companies
@@ -100,7 +100,7 @@
               </div>
 
               <div class="space-x-2">
-                <span class="text-secondary">Countries:</span>
+                <span class="text-gray-400">Countries:</span>
                 <span class="text-white">
                   {{
                     data.details.production_countries
@@ -113,7 +113,7 @@
           </div>
 
           <h1 class="text-2xl font-netflix_medium">More like this</h1>
-          <div class="grid grid-cols-3 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <poster-card
               class="col-span-1"
               :data="card"
@@ -185,13 +185,13 @@ export default {
 
 <style scoped>
 .info-container {
-  @apply bg-background rounded-xl w-[65vw] min-h-screen mt-[2rem] shadow overflow-hidden mx-auto;
+  @apply bg-background md:rounded-xl lg:w-[75vw] md:w-[80vw] w-screen max-w-[54rem] min-h-screen md:mt-[2rem] shadow overflow-hidden mx-auto;
   -webkit-box-shadow: 0px 0px 12px 0px #000000;
   box-shadow: 0px 0px 12px 0px #000000;
 }
 
 .info__overlay {
-  @apply p-12 absolute top-0 inset-0 flex flex-col justify-end space-y-2;
+  @apply p-4 md:p-12 absolute top-0 inset-0 flex flex-col justify-end space-y-2;
   background: linear-gradient(
     rgba(0, 0, 0, 0),
     rgba(var(--background-color-rgb), 1)
