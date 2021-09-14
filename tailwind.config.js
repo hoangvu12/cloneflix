@@ -41,11 +41,11 @@ module.exports = {
 
         "card-hover": {
           from: { transform: "scale(1)", zIndex: 10 },
-          to: { transform: "scale(1.5)", zIndex: 10 },
+          to: { transform: "scale(1.8)", zIndex: 10 },
         },
 
         "card-unhover": {
-          from: { transform: "scale(1.5)", zIndex: 10 },
+          from: { transform: "scale(1.8)", zIndex: 10 },
           to: { transform: "scale(1)", zIndex: 0 },
         },
 
