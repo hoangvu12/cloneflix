@@ -89,11 +89,13 @@ export default {
         800: {
           slidesPerView: 4,
           slidesPerGroup: 4,
+          spaceBetween: 3,
         },
 
         500: {
           slidesPerView: 3,
           slidesPerGroup: 3,
+          spaceBetween: 2,
         },
       },
     };
