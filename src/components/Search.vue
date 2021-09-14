@@ -39,7 +39,7 @@ export default {
     const { isMobile } = useDevice();
 
     const searchInput = ref(null);
-    const showSearch = ref(isMobile);
+    const showSearch = ref(isMobile.value);
     const debounceTimeout = ref(null);
     const router = useRouter();
 
