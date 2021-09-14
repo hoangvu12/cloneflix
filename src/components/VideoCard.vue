@@ -5,28 +5,24 @@
       cursor-pointer
       video-card
       relative
-      w-full
       transition-all
       duration-300
+      pt-[56.25%]
     "
     :class="{
-      'animate-card-hover': isScaled && !isModal,
+      'animate-card-hover': isScaled,
       'animate-card-unhover': !isScaled,
-      modal: isModal,
     }"
     @mouseenter="handleMouseEnter"
     @mouseleave="handleMouseLeave"
     @click="handleClick"
   >
-    <div class="w-full h-full">
-      <Image
-        :src="data.backdrop_path"
-        :size="185"
-        class="w-full h-full object-cover rounded-md"
-        :class="{ 'rounded-b-none shadow': isScaled }"
-        :alt="data.title"
-      />
-    </div>
+    <Image
+      :src="data.backdrop_path"
+      :size="185"
+      :class="{ 'rounded-b-none shadow': isScaled }"
+      :alt="data.title"
+    />
 
     <div
       v-if="isMouseEnter && isDesktop"
@@ -111,7 +107,6 @@ export default {
   },
   setup({ data }) {
     const isScaled = ref(false);
-    const isModal = ref(false);
     const timeout = ref(null);
     const container = ref(null);
     const isMouseEnter = ref(false);
@@ -158,7 +153,6 @@ export default {
     return {
       isDesktop,
       isScaled,
-      isModal,
       isMouseEnter,
       container,
       handleMouseEnter,
@@ -175,7 +169,7 @@ export default {
   box-shadow: 0px 0px 12px 0px #000000;
 }
 
-.video-card {
-  aspect-ratio: 16 / 9;
+.video-card img {
+  @apply object-cover rounded-md absolute top-0 left-0 w-full h-full;
 }
 </style>

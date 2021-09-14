@@ -2,10 +2,10 @@
 import { ref, onMounted, onUnmounted, computed } from "vue";
 
 const useDevice = () => {
-  const width = ref(window.screen.width);
+  const width = ref(window.innerWidth);
 
   function handleWindowSizeChange() {
-    width.value = window.screen.width;
+    width.value = window.innerWidth;
   }
 
   onMounted(() => {
