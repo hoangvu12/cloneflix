@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[100vw] h-[120vh]">
+  <div class="w-full h-[120vh]">
     <banner-skeleton v-if="isLoading" />
     <div v-if="!isLoading" class="banner-container relative w-full h-full">
       <div class="min-w-full min-h-full">

@@ -6,7 +6,7 @@
       top-0
       fixed
       h-screen
-      w-screen
+      w-full
       overflow-y-scroll
     "
     @click.self="handleCloseClick"
@@ -185,7 +185,7 @@ export default {
 
 <style scoped>
 .info-container {
-  @apply bg-background md:rounded-xl lg:w-[75vw] md:w-[80vw] w-screen max-w-[54rem] min-h-screen md:mt-[2rem] shadow overflow-hidden mx-auto;
+  @apply bg-background md:rounded-xl lg:w-[75vw] md:w-[80vw] w-full max-w-[54rem] min-h-screen md:mt-[2rem] shadow overflow-hidden mx-auto;
   -webkit-box-shadow: 0px 0px 12px 0px #000000;
   box-shadow: 0px 0px 12px 0px #000000;
 }

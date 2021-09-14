@@ -1,6 +1,6 @@
 <template>
   <Skeleton>
-    <div class="relative w-screen h-[120vh]">
+    <div class="relative w-full h-[120vh]">
       <div class="absolute inset-0 flex items-center px-12">
         <div class="w-[40%] space-y-6">
           <div class="w-4/6 font-bold h-8"></div>
