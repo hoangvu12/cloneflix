@@ -54,7 +54,6 @@
 </template>
 
 <script>
-import { useRouter } from "vue-router";
 import { computed } from "vue";
 
 import IconPlayFill from "~icons/ph/play-fill";
@@ -67,6 +66,9 @@ import Image from "./Image.vue";
 import Button from "./Button.vue";
 
 import useQuery from "../hooks/useQuery";
+
+import { setModalActive, setModalData } from "../store";
+
 import { randomIndex } from "../utils";
 import BannerSkeleton from "../skeletons/BannerSkeleton.vue";
 
@@ -74,18 +76,21 @@ export default {
   components: { Image, Button, IconPlayFill, IconInfoCircle, BannerSkeleton },
   props: ["type"],
   setup({ type }) {
-    const router = useRouter();
-
     let queryFn;
+
+    let finalType;
 
     if (type === "home" || type === "popular") {
       const index = randomIndex(1);
 
       queryFn = index ? getLatestTVShows : getLatestMovies;
+      finalType = index ? "tv" : "movies";
     } else if (type === "tv") {
       queryFn = getLatestTVShows;
+      finalType = "tv";
     } else {
       queryFn = getLatestMovies;
+      finalType = "movies";
     }
 
     const [data, isLoading, isError] = useQuery([`${type}_banner`], queryFn);
@@ -101,25 +106,11 @@ export default {
       return validResults[index];
     });
 
-    // const handleScrollPosition = (currentRoute) => {
-    //     const container = document.querySelector(".banner-container");
-    //     const scrollTop = currentRoute.query.scrollTop || 0;
-    //     if (currentRoute.name === "Info") {
-    //       container.style.marginTop = `-${scrollTop}px`;
-    //     } else {
-    //       container.style.marginTop = 0;
-    //     }
-    // };
-
-    // router.afterEach(handleScrollPosition);
-
     const handleMoreInfoClick = () => {
-      router.push({
-        path: "info",
-        query: {
-          id: banner.id,
-          scrollTop: document.documentElement.scrollTop,
-        },
+      setModalActive(true);
+      setModalData({
+        id: banner.value.id,
+        type: finalType,
       });
     };
 
