@@ -23,7 +23,7 @@
         duration-300
       "
       @input="handleSearchChange"
-      :class="showSearch ? 'w-[6rem] md:w-[14rem]' : 'w-0'"
+      :class="showSearch || isMobile ? 'w-[6rem] md:w-[14rem]' : 'w-0'"
     />
   </div>
 </template>
