@@ -12,7 +12,6 @@
         lg:grid-cols-5
         xl:grid-cols-6
         w-full
-        overflow-y-scroll
       "
     >
       <video-card-skeleton
