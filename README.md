@@ -2,8 +2,6 @@
 
 A netflix clone website built with Vue and Tailwind
 
-> In progress
-
 ## Table of contents
 
 - [Technologies](#technologies)
@@ -31,15 +29,19 @@ Here is some screenshots to show how the website would looks like.
 
 ##### Banner
 
-![homescreen](https://i.ibb.co/6F7vwH2/image-2021-09-06-191012.png)
+![image](https://user-images.githubusercontent.com/68330291/135614517-bb92d893-70ec-4fbf-b318-5748a571b32e.png)
 
-##### Unhovered and hovered carousels
+##### Swipers
 
-![carousels](https://i.ibb.co/QYhr30G/image.png)
+![swipers](https://user-images.githubusercontent.com/68330291/135614469-8f55b0d0-4114-4711-8095-f1a6578af315.png)
 
-##### Card hover
+##### Details modal
 
-![hover](https://i.ibb.co/BjFQNjJ/image.png)
+![modal](https://user-images.githubusercontent.com/68330291/135614403-93f51f6d-2f1d-4c14-9512-576702a560c7.png)
+
+
+
+Or here is the [live example](https://cloneflix-ashen.vercel.app/#/)
 
 ## Sources
 
