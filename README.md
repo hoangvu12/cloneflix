@@ -41,7 +41,7 @@ Here is some screenshots to show how the website would looks like.
 
 
 
-Or here is the [live example](https://cloneflix-ashen.vercel.app/#/)
+Or here is the [live example](https://master--hoangvu12-cloneflix.netlify.app)
 
 ## Sources
 
